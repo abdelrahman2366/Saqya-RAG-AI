@@ -1,0 +1,54 @@
+﻿file,pages,scanned_share,language,words,valid_words,garbled_pages,odd_per_1k,repeated,practical_per_1k,policy_share,verdict,reasons,notes
+NEW_sugar_beet.pdf,26,0.0,ar,5496,0.973,0,0.2,0.0,57.1,0.0,REMOVE,exact copy of 1-نشرة-بنجر-السكر_compressed.pdf (the pipeline skips it anyway),
+135905761430.pdf,96,0.0,en,16678,0.991,0,0.0,0.12,2.5,0.93,REVIEW,policy/report language (93% policy terms),
+AGRI_021.pdf,133,0.0,ar,41644,0.879,41,0.1,0.01,13.6,0.52,REVIEW,partly garbled: 88% valid words; policy/report language (52% policy terms),"41 unreadable page(s) will be skipped, the rest is indexed"
+cd7067en.pdf,297,0.0,en,53458,0.981,3,0.0,0.06,17.7,0.49,REVIEW,policy/report language (49% policy terms),"3 unreadable page(s) will be skipped, the rest is indexed"
+res4_-mohamed-abdel-hady-sayed-abdel-wahab.pdf,37,0.0,en,3495,0.91,3,0.0,0.02,51.8,0.02,REVIEW,partly garbled: 91% valid words,"3 unreadable page(s) will be skipped, the rest is indexed"
+Unit 1.pdf,63,0.0,en,12303,0.998,0,0.0,0.01,10.6,0.4,REVIEW,policy/report language (40% policy terms),
+NEW_rice_diseases.pdf,2,0.0,ar,156,0.891,0,0.0,0.0,128.2,0.0,REVIEW,partly garbled: 89% valid words; very little text (156 words),
+AGRI_011_PDF.pdf,44,0.0,en,8544,0.992,0,0.0,0.02,42.1,0.35,REVIEW,policy/report language (35% policy terms),
+نشرة-الكوسة.pdf,24,0.0,ar,5011,0.859,0,0.2,0.01,55.7,0.0,REVIEW,partly garbled: 86% valid words,
+AGRI_008.pdf,9,0.0,ar,2120,0.985,0,12.7,0.0,47.2,0.12,KEEP,,
+577137840-agriculture.pdf,14,0.0,en,2811,0.975,0,0.0,0.0,54.4,0.01,KEEP,,
+917873240-Key-Fact.pdf,286,0.0,en,40043,0.937,18,0.0,0.0,36.9,0.12,KEEP,,"18 unreadable page(s) will be skipped, the rest is indexed"
+2.pdf,21,0.0,en,2720,0.982,0,0.0,0.21,48.5,0.01,KEEP,,
+1-2.pdf,23,0.0,en,3654,0.978,0,0.0,0.03,80.2,0.02,KEEP,,
+1-نشرة-بنجر-السكر_compressed.pdf,26,0.0,ar,5496,0.973,0,0.2,0.0,57.1,0.0,KEEP,,
+AGRI_013.pdf,83,0.0,ar,25098,0.979,1,0.5,0.0,54.3,0.03,KEEP,,"1 unreadable page(s) will be skipped, the rest is indexed"
+NEW_citrus.pdf,29,0.0,ar,6738,0.981,0,0.0,0.01,85.9,0.01,KEEP,,
+farmerbook.pdf,200,0.0,en,32593,0.983,0,0.0,0.05,75.1,0.03,KEEP,,
+Agricultural_RAG_200_Pages_Arabic.pdf,315,0.0,ar,49730,0.973,0,0.9,0.42,57.4,0.04,KEEP,,42% of its text repeats itself: repeats are dropped when indexing
+AGRI_014_PDF.pdf,4,0.0,en,613,0.998,0,0.0,0.0,75.0,0.1,KEEP,,
+NEW_sugarcane_seedlings.pdf,30,0.0,ar,8161,0.962,0,0.4,0.0,61.1,0.0,KEEP,,
+NEW_tomato.pdf,33,0.0,ar,8812,0.985,0,0.6,0.02,76.5,0.01,KEEP,,
+NEW_onion.pdf,22,0.0,ar,4390,0.943,0,0.0,0.01,101.4,0.0,KEEP,,
+NEW_maize.pdf,29,0.0,ar,6055,0.97,0,0.0,0.01,100.6,0.0,KEEP,,
+NEW_wheat_new.pdf,53,0.0,ar,13270,0.972,0,0.2,0.05,95.3,0.0,KEEP,,
+NEW_vegetable_nurseries.pdf,23,0.0,ar,5003,0.981,0,0.0,0.0,45.4,0.01,KEEP,,
+ticket_file6214bd8f64479-Pomme-de-terre-Ardna (1).pdf,10,0.0,ar,1633,0.964,0,0.0,0.0,38.6,0.02,KEEP,,
+الباذنجان-17_compressed_compressed_compressed.pdf,43,0.0,ar,9929,0.971,0,0.5,0.0,67.8,0.0,KEEP,,
+البطاطس_compressed.pdf,64,0.0,ar,14647,0.964,0,0.4,0.0,53.7,0.01,KEEP,,
+البطيخ.pdf,32,0.0,ar,6649,0.975,0,0.0,0.0,67.4,0.0,KEEP,,
+التداول-الأمثل-لمحصول-البصل.pdf,3,0.0,ar,531,0.944,0,0.0,0.0,30.1,0.0,KEEP,,
+2-البحث-الثاني.pdf,15,0.0,en,3052,0.984,0,0.0,0.03,11.5,0.1,KEEP,,
+الذرة-الرفيعة-نهائي_compressed.pdf,13,0.0,ar,2399,0.961,0,0.0,0.0,110.0,0.0,KEEP,,
+الفلفل-16_compressed.pdf,62,0.0,ar,15722,0.971,0,1.0,0.02,65.7,0.0,KEEP,,
+القمح-فى-الأراضى-الجديدة_compressed.pdf,44,0.0,ar,10445,0.971,0,0.0,0.02,102.1,0.0,KEEP,,59% overlap with NEW_wheat_new.pdf: shared passages are dropped when indexing
+الفول-البلدي-نهائي_compressed.pdf,14,0.0,ar,2565,0.97,0,0.0,0.0,92.4,0.0,KEEP,,
+الكانتلوب.pdf,27,0.0,ar,5486,0.946,1,0.5,0.02,64.3,0.0,KEEP,,"1 unreadable page(s) will be skipped, the rest is indexed"
+الكتان2020_compressed.pdf,17,0.0,ar,3746,0.96,0,0.0,0.0,65.9,0.0,KEEP,,
+الكرنب_compressed.pdf,33,0.0,ar,5197,0.972,0,0.2,0.01,64.5,0.0,KEEP,,
+القمح-قديم-2022_compressed.pdf,36,0.0,ar,8653,0.977,0,0.0,0.02,96.2,0.0,KEEP,,59% overlap with القمح-فى-الأراضى-الجديدة_compressed.pdf: shared passages are dropped when indexing; 46% overlap with NEW_wheat_new.pdf: shared passages are dropped when indexing
+زراعة-وانتاج-الخيار.pdf,27,0.0,ar,6141,0.956,0,0.0,0.02,56.3,0.0,KEEP,,
+شجرة-الزيتون-نشرة-10.pdf,102,0.0,ar,25421,0.974,1,0.1,0.01,45.4,0.01,KEEP,,"1 unreadable page(s) will be skipped, the rest is indexed"
+نخيل-البلح-نشر.pdf,64,0.0,ar,20447,0.973,0,0.3,0.01,48.4,0.01,KEEP,,
+نشرة-االقصب-2023-copy_compressed.pdf,33,0.0,ar,7504,0.971,0,0.1,0.0,51.2,0.0,KEEP,,52% overlap with NEW_sugarcane_seedlings.pdf: shared passages are dropped when indexing
+نشرة-البصل-2022.pdf,27,0.0,ar,6503,0.967,0,0.0,0.02,88.0,0.0,KEEP,,
+نشرة-الذرة-نهائى-copy_compressed.pdf,24,0.0,ar,4672,0.966,0,0.0,0.01,94.8,0.0,KEEP,,68% overlap with NEW_maize.pdf: shared passages are dropped when indexing
+نشرة-السمسم-copy_compressed.pdf,11,0.0,ar,2318,0.97,0,0.0,0.0,88.0,0.0,KEEP,,
+الموالح_compressed.pdf,58,0.0,ar,14353,0.961,0,0.3,0.0,58.4,0.01,KEEP,,
+نشرة-الفراوله-طبع_compressed.pdf,42,0.0,ar,9578,0.963,0,0.0,0.0,66.7,0.0,KEEP,,
+نشرة-القطن2023_compressed-1.pdf,51,0.0,ar,13526,0.963,0,0.2,0.02,55.0,0.01,KEEP,,
+نشرة-المانجو-طبع_compressed.pdf,58,0.0,ar,14501,0.972,0,0.1,0.0,62.3,0.0,KEEP,,
+نشرة-دوار-الشمس.pdf,13,0.0,ar,2738,0.975,0,0.0,0.01,91.3,0.01,KEEP,,
+نشرة-فول-الصويا-طبع_compressed.pdf,22,0.0,ar,5265,0.966,0,0.0,0.0,60.6,0.02,KEEP,,

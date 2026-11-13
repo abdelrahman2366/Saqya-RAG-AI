@@ -1,0 +1,928 @@
+[
+  {
+    "id": "e01",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إمتى أزرع القطن في الأراضي القديمة يا باشمهندس؟",
+    "msa_id": "q01",
+    "question_msa": "ما هو الميعاد المناسب لزراعة القطن في الأراضي القديمة؟",
+    "expected_keywords": [
+      "عند ثبات درجة حرارة التربة عند 15"
+    ],
+    "answer_keywords": [
+      "مارس",
+      "إبريل",
+      "ابريل",
+      "أبريل"
+    ],
+    "expected_source": "نشرة-القطن"
+  },
+  {
+    "id": "e02",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إيه اللي بيعمل الهياج الخضري في القطن؟",
+    "msa_id": "q02",
+    "question_msa": "ما أسباب ظاهرة الهياج الخضري في القطن؟",
+    "expected_keywords": [
+      "زيادة الكثافة النباتية في الأراضي الخصبة",
+      "زيادة معدلات التسميد الأزوتى عن حاجة النبات"
+    ],
+    "answer_keywords": [
+      "الكثافة",
+      "الأزوت",
+      "الآزوت",
+      "النيتروجين",
+      "الخف"
+    ],
+    "expected_source": "نشرة-القطن"
+  },
+  {
+    "id": "e03",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إمتى أحسن وقت أزرع فيه القمح في الأراضي الجديدة؟",
+    "msa_id": "q03",
+    "question_msa": "ما هو أنسب ميعاد لزراعة القمح في الأراضي الجديدة؟",
+    "expected_keywords": [
+      "الفترة من 15 إلى 30 نوفمبر"
+    ],
+    "answer_keywords": [
+      "30 نوفمبر",
+      "15 نوفمبر",
+      "10 ديسمبر"
+    ]
+  },
+  {
+    "id": "e04",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "الفدان عايز كام كيلو تقاوي قمح لو بسقي بالبيفوت؟",
+    "msa_id": "q04",
+    "question_msa": "كم كيلو تقاوي قمح يحتاج الفدان تحت نظام الري المحوري (البيفوت)؟",
+    "expected_keywords": [
+      "كجم للفدان حسب خصوبة التربة"
+    ],
+    "answer_keywords": [
+      "55",
+      "60"
+    ],
+    "expected_source": "NEW_wheat"
+  },
+  {
+    "id": "e05",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "لو هزرع القمح نقر على مصاطب، أحط كام كيلو تقاوي؟",
+    "msa_id": "q05",
+    "question_msa": "ما معدل تقاوي القمح عند الزراعة بالنقر على المصاطب؟",
+    "expected_keywords": [
+      "يكون معدل التقاوي 45 كجم للفدان"
+    ],
+    "answer_keywords": [
+      "45"
+    ],
+    "expected_source": "القمح-قديم"
+  },
+  {
+    "id": "e06",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "ليه بيقولوا أزرع برسيم فحل قبل القمح؟",
+    "msa_id": "q06",
+    "question_msa": "لماذا ينصح بزراعة البرسيم الفحل قبل زراعة القمح؟",
+    "expected_keywords": [
+      "زراعة البرسيم الفحل في الحقول"
+    ],
+    "answer_keywords": [
+      "20 طن",
+      "سبتمبر",
+      "نوفمبر"
+    ],
+    "expected_source": "القمح-قديم"
+  },
+  {
+    "id": "e07",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "دودة الحشد بتعمل إيه في القمح وأعرف الإصابة إزاي؟",
+    "msa_id": "q07",
+    "question_msa": "ما هي أضرار دودة الحشد الخريفية على القمح وكيف تظهر الإصابة؟",
+    "expected_keywords": [
+      "دودة الحشد الخريفية"
+    ],
+    "answer_keywords": [
+      "الشبابيك",
+      "يرقات",
+      "اليرقات",
+      "الذرة"
+    ]
+  },
+  {
+    "id": "e08",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إمتى أزرع بنجر السكر؟",
+    "msa_id": "q08",
+    "question_msa": "متى يزرع بنجر السكر؟",
+    "expected_keywords": [
+      "إبتداء من أغسطس وحتى منتصف نوفمبر"
+    ],
+    "answer_keywords": [
+      "أغسطس",
+      "اغسطس",
+      "نوفمبر"
+    ],
+    "expected_source": "بنجر"
+  },
+  {
+    "id": "e09",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "أخف البنجر إمتى؟",
+    "msa_id": "q09",
+    "question_msa": "متى تجرى عملية الخف في بنجر السكر؟",
+    "expected_keywords": [
+      "بمجرد ظهور أربعة أوراق حقيقية"
+    ],
+    "answer_keywords": [
+      "أربع",
+      "اربع",
+      "4"
+    ],
+    "expected_source": "بنجر"
+  },
+  {
+    "id": "e10",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "القصب الخريفي بيتزرع إمتى؟",
+    "msa_id": "q10",
+    "question_msa": "ما هو ميعاد زراعة القصب الخريفي؟",
+    "expected_keywords": [
+      "سبتمبر وأكتوبر في كل من منطقتي مصر الوسطي والعليا"
+    ],
+    "answer_keywords": [
+      "سبتمبر",
+      "أكتوبر",
+      "اكتوبر"
+    ],
+    "expected_source": "القصب"
+  },
+  {
+    "id": "e11",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "فدان القصب عايز كام طن تقاوي؟",
+    "msa_id": "q11",
+    "question_msa": "كم طنا من التقاوي يحتاج فدان قصب السكر؟",
+    "expected_keywords": [
+      "4.5 طن في حالة الزراعة بصف ونصف"
+    ],
+    "answer_keywords": [
+      "4.5",
+      "6 طن"
+    ],
+    "expected_source": "القصب"
+  },
+  {
+    "id": "e12",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "الفدان ياخد كام كيلو بذرة عباد الشمس؟",
+    "msa_id": "q12",
+    "question_msa": "ما معدل تقاوي دوار الشمس للفدان؟",
+    "expected_keywords": [
+      "كجم بذرة / فدان"
+    ],
+    "answer_keywords": [
+      "4–5",
+      "4-5",
+      "5-4",
+      "2.5",
+      "2–2.5"
+    ],
+    "expected_source": "دوار-الشمس"
+  },
+  {
+    "id": "e13",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "ليه لازم أحط خلايا نحل جنب غيط عباد الشمس؟",
+    "msa_id": "q13",
+    "question_msa": "لماذا يجب توفير خلايا النحل بجوار حقول زهرة الشمس؟",
+    "expected_keywords": [
+      "خلية نحل نشطة لكل فدان"
+    ],
+    "answer_keywords": [
+      "التلقيح",
+      "خلية"
+    ],
+    "expected_source": "دوار-الشمس"
+  },
+  {
+    "id": "e14",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إيه أحسن ميعاد أزرع فيه السمسم؟",
+    "msa_id": "q14",
+    "question_msa": "ما هو أفضل ميعاد لزراعة السمسم؟",
+    "expected_keywords": [
+      "أفضل ميعاد لزراعة السمسم في الفترة من منتصف ابريل"
+    ],
+    "answer_keywords": [
+      "ابريل",
+      "أبريل",
+      "إبريل",
+      "مايو"
+    ],
+    "expected_source": "السمسم"
+  },
+  {
+    "id": "e15",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "أحصد السمسم إمتى وإزاي؟",
+    "msa_id": "q15",
+    "question_msa": "متى وكيف يتم حصاد السمسم؟",
+    "expected_keywords": [
+      "يجب الحصاد بعد تمام تساقط الأوراق"
+    ],
+    "answer_keywords": [
+      "الأوراق",
+      "حزم",
+      "الجرن",
+      "المنشر"
+    ],
+    "expected_source": "السمسم"
+  },
+  {
+    "id": "e16",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "فدان الدرة الرفيعة عايز كام كيلو تقاوي؟",
+    "msa_id": "q16",
+    "question_msa": "كم كيلو تقاوي يحتاج فدان الذرة الرفيعة؟",
+    "expected_keywords": [
+      "كيلو جرام من الأصناف طويلة الساق"
+    ],
+    "answer_keywords": [
+      "7 كيلو",
+      "7 كجم",
+      "10 كيلو",
+      "10 كجم",
+      "10-7",
+      "7-10"
+    ],
+    "expected_source": "الذرة-الرفيعة"
+  },
+  {
+    "id": "e17",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إمتى نزرع الدرة الرفيعة عندنا في الصعيد؟",
+    "msa_id": "q17",
+    "question_msa": "متى تزرع الذرة الرفيعة في محافظات الصعيد؟",
+    "expected_keywords": [
+      "تزرع الذرة الرفيعة خلال شهر مايو"
+    ],
+    "answer_keywords": [
+      "مايو",
+      "يونيو"
+    ],
+    "expected_source": "الذرة-الرفيعة"
+  },
+  {
+    "id": "e18",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "إمتى أزرع الكتان؟",
+    "msa_id": "q18",
+    "question_msa": "ما أنسب ميعاد لزراعة الكتان؟",
+    "expected_keywords": [
+      "النصف الأول من شهر نوفمبر"
+    ],
+    "answer_keywords": [
+      "نوفمبر"
+    ],
+    "expected_source": "الكتان"
+  },
+  {
+    "id": "e19",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "الفدان في أراضي الوادي ياخد كام كيلو تقاوي كتان؟",
+    "msa_id": "q19",
+    "question_msa": "كم كيلو تقاوي كتان يحتاج الفدان في أراضي الوادي؟",
+    "expected_keywords": [
+      "معدل تقاوى 60كجم/ف"
+    ],
+    "answer_keywords": [
+      "60",
+      "70"
+    ],
+    "expected_source": "الكتان"
+  },
+  {
+    "id": "e20",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "التلقيح البكتيري لتقاوي الفول البلدي بيفيد في إيه؟",
+    "msa_id": "q20",
+    "question_msa": "ما فائدة التلقيح البكتيري لتقاوي الفول البلدي؟",
+    "expected_keywords": [
+      "ببكتيريا العقد الجذرية"
+    ],
+    "answer_keywords": [
+      "العقد الجذرية",
+      "الأزوت",
+      "الازوت",
+      "النيتروجين",
+      "تثبيت"
+    ],
+    "expected_source": "الفول-البلدي"
+  },
+  {
+    "id": "e21",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "بذرة فول الصويا فيها زيت وبروتين قد إيه؟",
+    "msa_id": "q21",
+    "question_msa": "ما نسبة الزيت والبروتين في بذور فول الصويا؟",
+    "expected_keywords": [
+      "زيت خالي من الكوليسترول"
+    ],
+    "answer_keywords": [
+      "20",
+      "40"
+    ],
+    "expected_source": "فول-الصويا"
+  },
+  {
+    "id": "e22",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "الرز عندي فيه البكانا، أعالجه إزاي؟",
+    "msa_id": "q22",
+    "question_msa": "كيف أعالج مرض البكانا في الأرز؟",
+    "expected_keywords": [
+      "نقع التقاوي في محلول ملحي"
+    ],
+    "answer_keywords": [
+      "محلول ملحي",
+      "48"
+    ],
+    "expected_source": "rice"
+  },
+  {
+    "id": "e23",
+    "type": "egyptian",
+    "category": "field crops",
+    "question": "الرز جاله لفحة، أعمل إيه؟",
+    "msa_id": "q23",
+    "question_msa": "ما علاج مرض اللفحة في الأرز؟",
+    "expected_keywords": [
+      "فوجي ون"
+    ],
+    "answer_keywords": [
+      "فوجي ون",
+      "البيم"
+    ],
+    "expected_source": "rice"
+  },
+  {
+    "id": "e24",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الفدان عايز كام جرام بذرة أوطة هجين؟",
+    "msa_id": "q24",
+    "question_msa": "كم جراما من بذور الطماطم الهجين يحتاج الفدان؟",
+    "expected_keywords": [
+      "يحتاج الفدان عند الزراعة بالهجن"
+    ],
+    "answer_keywords": [
+      "35",
+      "50"
+    ],
+    "expected_source": "tomato"
+  },
+  {
+    "id": "e25",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الأوطة عندي بتعفن من تحت عند الطرف، السبب إيه؟",
+    "msa_id": "q25",
+    "question_msa": "ما سبب عفن الطرف الزهري في ثمار الطماطم؟",
+    "expected_keywords": [
+      "عفن الطرف الزهري"
+    ],
+    "answer_keywords": [
+      "الكالسيوم"
+    ],
+    "expected_source": "tomato"
+  },
+  {
+    "id": "e26",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أعرف إزاي إن البصل استوى وجاهز للتقليع؟",
+    "msa_id": "q26",
+    "question_msa": "متى يعتبر محصول البصل ناضجا وجاهزا للتقليع؟",
+    "expected_keywords": [
+      "رقاد حوالى 75"
+    ],
+    "answer_keywords": [
+      "75",
+      "رقاد"
+    ]
+  },
+  {
+    "id": "e27",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أعمل إيه في البصل بعد ما أقلعه عشان يستحمل التخزين مدة طويلة؟",
+    "msa_id": "q27",
+    "question_msa": "كيف أجهز البصل بعد التقليع حتى يتحمل التخزين فترة طويلة؟",
+    "expected_keywords": [
+      "العلاج التجفيفي",
+      "بالتسميط"
+    ],
+    "answer_keywords": [
+      "التجفيف",
+      "التسميط"
+    ]
+  },
+  {
+    "id": "e28",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "بذرة الفلفل بتنبت أحسن على درجة حرارة كام؟",
+    "msa_id": "q28",
+    "question_msa": "ما درجة الحرارة المثلى لإنبات بذور الفلفل؟",
+    "expected_keywords": [
+      "درجة الحرارة المثلى للأنبات"
+    ],
+    "answer_keywords": [
+      "24",
+      "25"
+    ],
+    "expected_source": "الفلفل"
+  },
+  {
+    "id": "e29",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أقسي شتلات البتنجان إزاي قبل ما أنقلها الأرض المستديمة؟",
+    "msa_id": "q29",
+    "question_msa": "كيف تتم تقسية شتلات الباذنجان قبل نقلها للأرض المستديمة؟",
+    "expected_keywords": [
+      "التقسية للشتلات قبل نقلها"
+    ],
+    "answer_keywords": [
+      "الري",
+      "الرى",
+      "أسبوع",
+      "الغطاء"
+    ],
+    "expected_source": "الباذنجان"
+  },
+  {
+    "id": "e30",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الخيار بيتقطف بعد كام يوم من الزراعة؟",
+    "msa_id": "q30",
+    "question_msa": "بعد كم يوم من الزراعة تقطف ثمار الخيار؟",
+    "expected_keywords": [
+      "تقطف ثمار الخيار عندما تصل إلى الحجم المناسب"
+    ],
+    "answer_keywords": [
+      "45",
+      "55"
+    ],
+    "expected_source": "الخيار"
+  },
+  {
+    "id": "e31",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الفدان عايز كام كيلو بذرة كوسا؟",
+    "msa_id": "q31",
+    "question_msa": "كم كيلو بذرة كوسة يحتاج الفدان؟",
+    "expected_keywords": [
+      "كجم بذرة / الفدان"
+    ],
+    "answer_keywords": [
+      "750",
+      "2-1",
+      "1-2",
+      "2 كجم"
+    ],
+    "expected_source": "الكوسة"
+  },
+  {
+    "id": "e32",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "ليه ساق الكرنب بتطلع مجوفة؟",
+    "msa_id": "q32",
+    "question_msa": "ما أسباب ظاهرة الساق الأجوف في الكرنب؟",
+    "expected_keywords": [
+      "زياده التسميد الأزوتى"
+    ],
+    "answer_keywords": [
+      "البورون",
+      "الأزوت",
+      "الآزوت",
+      "النيتروجين"
+    ],
+    "expected_source": "الكرنب"
+  },
+  {
+    "id": "e33",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أعرف إزاي إن البطيخة استوت؟",
+    "msa_id": "q33",
+    "question_msa": "ما علامات نضج ثمرة البطيخ؟",
+    "expected_keywords": [
+      "جفاف المحلاق المقابل لعنق الثمرة"
+    ],
+    "answer_keywords": [
+      "المحلاق",
+      "أجوف",
+      "اجوف",
+      "اللون"
+    ],
+    "expected_source": "البطيخ"
+  },
+  {
+    "id": "e34",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الشمام اللي تحت الأنفاق بيستوي بعد كام يوم؟",
+    "msa_id": "q34",
+    "question_msa": "بعد كم يوم تنضج ثمار الكانتلوب المزروعة تحت الأنفاق؟",
+    "expected_keywords": [
+      "ينضج الكانتلوب المنزرع تحت الانفاق"
+    ],
+    "answer_keywords": [
+      "90",
+      "110"
+    ],
+    "expected_source": "الكانتلوب"
+  },
+  {
+    "id": "e35",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "فدان البطاطس في العروة الصيفي عايز كام كيلو تقاوي؟",
+    "msa_id": "q35",
+    "question_msa": "كم كيلو تقاوي بطاطس يحتاج الفدان في العروة الصيفية؟",
+    "expected_keywords": [
+      "لزراعة العروة الصيفية من التقاوى المستوردة"
+    ],
+    "answer_keywords": [
+      "750",
+      "800"
+    ],
+    "expected_source": "البطاطس_compressed"
+  },
+  {
+    "id": "e36",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "يعني إيه تنبيت أخضر لتقاوي البطاطس وبيتعمل إمتى؟",
+    "msa_id": "q36",
+    "question_msa": "ما هو التنبيت الأخضر لتقاوي البطاطس ومتى يجرى؟",
+    "expected_keywords": [
+      "التنبيت الأخضر"
+    ],
+    "answer_keywords": [
+      "أسبوعين",
+      "اسبوعين",
+      "الإضاءة",
+      "البراعم"
+    ],
+    "expected_source": "البطاطس_compressed"
+  },
+  {
+    "id": "e37",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أخزن البطاطس على حرارة ورطوبة قد إيه؟",
+    "msa_id": "q37",
+    "question_msa": "ما درجة الحرارة والرطوبة المناسبة لتخزين درنات البطاطس؟",
+    "expected_keywords": [
+      "الرطوبة النسبية: تتراوح ما بين 90 و 95"
+    ],
+    "answer_keywords": [
+      "90",
+      "95"
+    ],
+    "expected_source": "Pomme"
+  },
+  {
+    "id": "e38",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "إمتى أزرع شتلات الفراولة الفريش عشان التصدير؟",
+    "msa_id": "q38",
+    "question_msa": "متى تزرع شتلات الفراولة الطازجة لإنتاج ثمار التصدير؟",
+    "expected_keywords": [
+      "الأسبوع الأول من سبتمبر وحتى منتصف أكتوبر"
+    ],
+    "answer_keywords": [
+      "سبتمبر",
+      "أكتوبر",
+      "اكتوبر"
+    ],
+    "expected_source": "الفراوله"
+  },
+  {
+    "id": "e39",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "إمتى أأقلم شتلات الخضار قبل ما أنقلها من المشتل؟",
+    "msa_id": "q39",
+    "question_msa": "متى تجرى عملية أقلمة شتلات الخضر قبل نقلها من المشتل؟",
+    "expected_keywords": [
+      "قبل نقل الشتلات ب 10"
+    ],
+    "answer_keywords": [
+      "10",
+      "15"
+    ],
+    "expected_source": "vegetable"
+  },
+  {
+    "id": "e40",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "الشتلة الكويسة بتاعة الخضار شكلها إيه؟",
+    "msa_id": "q40",
+    "question_msa": "ما مواصفات شتلة الخضر الجيدة؟",
+    "expected_keywords": [
+      "أن تكون الشتلات قوية النمو"
+    ],
+    "answer_keywords": [
+      "قوية",
+      "متجانس",
+      "خالية من الامراض",
+      "خالية من الأمراض"
+    ],
+    "expected_source": "vegetable"
+  },
+  {
+    "id": "e41",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أقاوم التوتا في الأوطة إزاي؟",
+    "msa_id": "q41",
+    "question_msa": "كيف أكافح حشرة التوتا أبسلوتا في الطماطم؟",
+    "expected_keywords": [
+      "التوتا"
+    ],
+    "answer_keywords": [
+      "الترايكوجراما",
+      "الفرمونية",
+      "النيم",
+      "المصائد"
+    ],
+    "expected_source": "tomato"
+  },
+  {
+    "id": "e42",
+    "type": "egyptian",
+    "category": "vegetables",
+    "question": "أحط كام طن سباخ للهكتار وأنا بزرع البطاطس؟",
+    "msa_id": "q42",
+    "question_msa": "كم طنا من السماد العضوي يضاف لكل هكتار عند زراعة البطاطس؟",
+    "expected_keywords": [
+      "إضافة 20 إلى 30 طنا"
+    ],
+    "answer_keywords": [
+      "20",
+      "30"
+    ],
+    "expected_source": "Pomme"
+  },
+  {
+    "id": "e43",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "أعرف إزاي إن شجر البرتقان ناقصه زنك؟",
+    "msa_id": "q43",
+    "question_msa": "ما أعراض نقص الزنك في أشجار الموالح؟",
+    "expected_keywords": [
+      "ويسمى هذا التبرقش"
+    ],
+    "answer_keywords": [
+      "التبرقش",
+      "بقع صفراء",
+      "صغر حجم الأوراق"
+    ],
+    "expected_source": "الموالح_compressed"
+  },
+  {
+    "id": "e44",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "ليه البرتقال بيفرقع على الشجر؟",
+    "msa_id": "q44",
+    "question_msa": "لماذا تتشقق ثمار الموالح؟",
+    "expected_keywords": [
+      "لعدم انتظام الرى"
+    ],
+    "answer_keywords": [
+      "الري",
+      "الرى",
+      "العطش"
+    ],
+    "expected_source": "الموالح_compressed"
+  },
+  {
+    "id": "e45",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "أحفر الجورة قد إيه وأنا بزرع شتلات الموالح؟",
+    "msa_id": "q45",
+    "question_msa": "ما أبعاد الجورة عند زراعة شتلات الموالح؟",
+    "expected_keywords": [
+      "يتم حفر الجور بحيث لا تقل أبعادها"
+    ],
+    "answer_keywords": [
+      "80"
+    ],
+    "expected_source": "NEW_citrus"
+  },
+  {
+    "id": "e46",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "المانجا في أسوان بتتجمع إمتى؟",
+    "msa_id": "q46",
+    "question_msa": "متى يبدأ موسم جمع المانجو في أسوان؟",
+    "expected_keywords": [
+      "هي بشائر المانجو في مصر"
+    ],
+    "answer_keywords": [
+      "يونيو"
+    ],
+    "expected_source": "المانجو"
+  },
+  {
+    "id": "e47",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "ليه المانجا بتطرح سنة آه وسنة لأ؟",
+    "msa_id": "q47",
+    "question_msa": "ما هي ظاهرة المعاومة في أشجار المانجو؟",
+    "expected_keywords": [
+      "المانجو للمعاومة"
+    ],
+    "answer_keywords": [
+      "تبادل الحمل",
+      "غزير",
+      "العام التال"
+    ],
+    "expected_source": "المانجو"
+  },
+  {
+    "id": "e48",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "يعني إيه الزيتون عنده عدم توافق ذاتي؟",
+    "msa_id": "q48",
+    "question_msa": "ما معنى عدم التوافق الذاتي في أصناف الزيتون؟",
+    "expected_keywords": [
+      "عدم مقدرة الزهرة أن تلقح نفسها"
+    ],
+    "answer_keywords": [
+      "تلقح",
+      "ملقحات",
+      "الصنف نفسه"
+    ],
+    "expected_source": "الزيتون"
+  },
+  {
+    "id": "e49",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "أقلم راس النخلة إزاي عشان أقلل الآفات؟",
+    "msa_id": "q49",
+    "question_msa": "كيف يتم تقليم رأس النخلة للحد من الإصابة بالآفات؟",
+    "expected_keywords": [
+      "يتم التقليم سنويا بإزالة الجريد الجاف"
+    ],
+    "answer_keywords": [
+      "الجريد الجاف",
+      "25 سم",
+      "10 سم"
+    ],
+    "expected_source": "نخيل-البلح"
+  },
+  {
+    "id": "e50",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "ليه مبنزرعش النخل من النوى؟",
+    "msa_id": "q50",
+    "question_msa": "لماذا لا تستخدم البذور في إكثار نخيل البلح تجاريا؟",
+    "expected_keywords": [
+      "الزراعة بالبذرة تقتصر فقط على أغراض التربية"
+    ],
+    "answer_keywords": [
+      "التربية",
+      "الفسائل"
+    ],
+    "expected_source": "نخيل-البلح"
+  },
+  {
+    "id": "e51",
+    "type": "egyptian",
+    "category": "fruit trees",
+    "question": "البلح بياخد كام يوم من التلقيح لحد الحصاد؟",
+    "msa_id": "q51",
+    "question_msa": "كم يوما تحتاج ثمرة البلح من التلقيح حتى الحصاد؟",
+    "expected_keywords": [
+      "210-180 يوم"
+    ],
+    "answer_keywords": [
+      "180",
+      "210"
+    ],
+    "expected_source": "نخيل-البلح"
+  },
+  {
+    "id": "e52",
+    "type": "egyptian",
+    "category": "general",
+    "question": "الـ EC بتاع الأرض بيقيس إيه؟",
+    "msa_id": "q52",
+    "question_msa": "ما الذي يقيسه التوصيل الكهربي EC في التربة؟",
+    "expected_keywords": [
+      "التوصيل الكهربي EC مؤشر لتركيز الأملاح الذائبة"
+    ],
+    "answer_keywords": [
+      "الأملاح",
+      "الاملاح",
+      "الملوحة"
+    ],
+    "expected_source": "Agricultural_RAG"
+  },
+  {
+    "id": "e53",
+    "type": "egyptian",
+    "category": "general",
+    "question": "أعمل إيه عشان الحشرات متاخدش على المبيد؟",
+    "msa_id": "q53",
+    "question_msa": "كيف أمنع الآفات من اكتساب مقاومة للمبيدات؟",
+    "expected_keywords": [
+      "التناوب بين مجموعات المبيدات",
+      "وتتطلب السيطرة على المقاومة ما يلي"
+    ],
+    "answer_keywords": [
+      "تناوب",
+      "مخاليط",
+      "مجموعات",
+      "مجاميع",
+      "الإدارة المتكاملة",
+      "الضغط الانتخابي"
+    ]
+  },
+  {
+    "id": "e54",
+    "type": "egyptian",
+    "category": "general",
+    "question": "أطلب إيه من معمل تحليل التربة؟",
+    "msa_id": "q54",
+    "question_msa": "ما القيم التي أطلبها من معمل تحليل التربة؟",
+    "expected_keywords": [
+      "تطلب من المعمل قيم"
+    ],
+    "answer_keywords": [
+      "pH",
+      "EC",
+      "الملوحة"
+    ],
+    "expected_source": "Agricultural_RAG"
+  },
+  {
+    "id": "e55",
+    "type": "egyptian",
+    "category": "general",
+    "question": "إيه أساسيات المكافحة المتكاملة للآفات؟",
+    "msa_id": "q55",
+    "question_msa": "ما هي مبادئ الإدارة المتكاملة للآفات؟",
+    "expected_keywords": [
+      "تعتمد الإدارة المتكاملة للآفات IPM على الوقاية"
+    ],
+    "answer_keywords": [
+      "الوقاية",
+      "المراقبة",
+      "التشخيص",
+      "الحيوية"
+    ]
+  }
+]

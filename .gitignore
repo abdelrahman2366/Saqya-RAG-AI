@@ -1,0 +1,45 @@
+# Python / environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Secrets and local config
+.env
+
+# Logs
+*.log
+
+# Raw document corpus — not committed (see README > Domain & data for where to get it)
+data/raw/*
+!data/raw/.gitkeep
+# Cleaned copies made by notebooks/clean_rag_pdfs_no_ai.ipynb — derived from data/raw/, not committed either
+data/clean/*
+!data/clean/.gitkeep
+
+# Ratings from the chat UI (POST /feedback): local review data
+backend/data/feedback.jsonl
+# Documents uploaded in the chat app ("My document")
+backend/data/uploads/
+backend/data/learned/
+
+# Vector store: not committed (chroma.sqlite3 alone is over GitHub's 100 MB file limit).
+# Rebuild it by running notebooks/rag_pipeline.ipynb.
+backend/data/vector_store/*
+!backend/data/vector_store/.gitkeep
+
+# Egyptian-Arabic fine-tune of bge-m3 (notebooks/egyptian_finetune.ipynb): ~2.2 GB, rebuild it with the notebook
+models/
+# its passage cache (rebuilt automatically)
+notebooks/results/egyptian_finetune_chunks.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Copies of files as they were before the November update (safe to delete once you are happy)
+_backup_before_update/

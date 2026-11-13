@@ -1,0 +1,385 @@
+[
+  {
+    "id": "q01",
+    "type": "in_domain",
+    "question": "ما هو أنسب ميعاد لزراعة القمح في الوجه البحري؟",
+    "expected_keywords": [
+      "الوجه البحري هو الفترة من 15",
+      "من 15 إلى 30 نوفمبر"
+    ],
+    "answer_keywords": [
+      "30 نوفمبر",
+      "15"
+    ]
+  },
+  {
+    "id": "q02",
+    "type": "in_domain",
+    "question": "ما هو الميعاد المناسب لزراعة القطن في الأراضي القديمة؟",
+    "expected_keywords": [
+      "عند توافر الظروف الجوية المناسبة"
+    ],
+    "answer_keywords": [
+      "مارس",
+      "ابريل"
+    ]
+  },
+  {
+    "id": "q03",
+    "type": "in_domain",
+    "question": "كم كيلو تقاوي يحتاج فدان الفول البلدي؟",
+    "expected_keywords": [
+      "30كجم للفدان"
+    ],
+    "answer_keywords": [
+      "30",
+      "40"
+    ]
+  },
+  {
+    "id": "q04",
+    "type": "in_domain",
+    "question": "كم كجم من تقاوي فول الصويا يحتاج الفدان؟",
+    "expected_keywords": [
+      "يحتاج الفدان نحو 30 كجم"
+    ],
+    "answer_keywords": [
+      "30"
+    ]
+  },
+  {
+    "id": "q05",
+    "type": "in_domain",
+    "question": "ما هو أفضل ميعاد لزراعة السمسم؟",
+    "expected_keywords": [
+      "ميعاد لزراعة السمسم"
+    ],
+    "answer_keywords": [
+      "ابريل",
+      "مايو"
+    ]
+  },
+  {
+    "id": "q06",
+    "type": "in_domain",
+    "question": "ما هو معدل تقاوي دوار الشمس للفدان؟",
+    "expected_keywords": [
+      "كجم بذرة / فدان"
+    ],
+    "answer_keywords": [
+      "4-5",
+      "4 – 5",
+      "4 الي 5",
+      "2.5",
+      "2,5"
+    ]
+  },
+  {
+    "id": "q07",
+    "type": "in_domain",
+    "question": "كيف أكافح حشرة التوتا أبسلوتا في الطماطم؟",
+    "expected_keywords": [
+      "التوتا"
+    ],
+    "answer_keywords": [
+      "الترايكوجراما",
+      "الفرمونية",
+      "النيم"
+    ]
+  },
+  {
+    "id": "q08",
+    "type": "in_domain",
+    "question": "كيف أجهز البصل بعد التقليع حتى يتحمل التخزين فترة طويلة؟",
+    "expected_keywords": [
+      "بعملية التجفيف"
+    ],
+    "answer_keywords": [
+      "التجفيف",
+      "التسميط"
+    ]
+  },
+  {
+    "id": "q09",
+    "type": "in_domain",
+    "question": "ما هي ظاهرة المعاومة في أشجار المانجو؟",
+    "expected_keywords": [
+      "المانجو للمعاومة"
+    ],
+    "answer_keywords": [
+      "تبادل الحمل",
+      "غزير",
+      "التالي",
+      "العام التال"
+    ]
+  },
+  {
+    "id": "q10",
+    "type": "in_domain",
+    "question": "في أي وقت من السنة يمكن زراعة النخيل؟",
+    "expected_keywords": [
+      "عدا شهرى الشتاء",
+      "نوصى بالزراعة بداية من الربيع"
+    ],
+    "answer_keywords": [
+      "ديسمبر",
+      "يناير",
+      "الربيع"
+    ]
+  },
+  {
+    "id": "q11",
+    "type": "in_domain",
+    "question": "كم يوما تحتاج ثمرة البلح من التلقيح حتى الحصاد؟",
+    "expected_keywords": [
+      "210-180 يوم"
+    ],
+    "answer_keywords": [
+      "180",
+      "210"
+    ]
+  },
+  {
+    "id": "q12",
+    "type": "in_domain",
+    "question": "ما الارتفاع المناسب لحوامل صواني الشتلات عن سطح الأرض في مشتل الخضر؟",
+    "expected_keywords": [
+      "حوامل الصواني"
+    ],
+    "answer_keywords": [
+      "70",
+      "80"
+    ]
+  },
+  {
+    "id": "q13",
+    "type": "in_domain",
+    "question": "When should sugar beet be planted in Egypt?",
+    "expected_keywords": [
+      "إبتداء من أغسطس"
+    ],
+    "answer_keywords": [
+      "August"
+    ]
+  },
+  {
+    "id": "q14",
+    "type": "in_domain",
+    "question": "What seed rate per feddan is recommended for bread wheat sown with a seed drill?",
+    "expected_keywords": [
+      "45 كجم من قمح"
+    ],
+    "answer_keywords": [
+      "45"
+    ]
+  },
+  {
+    "id": "q15",
+    "type": "in_domain",
+    "question": "How many kilograms of seed per feddan do I need for single-cross maize hybrids?",
+    "expected_keywords": [
+      "10 كجم للفدان من الهجن الفردية"
+    ],
+    "answer_keywords": [
+      "10 kg",
+      "10 kilo",
+      "10kg"
+    ]
+  },
+  {
+    "id": "q16",
+    "type": "in_domain",
+    "question": "When should fresh strawberry transplants be planted for export production?",
+    "expected_keywords": [
+      "من سبتمبر وحتى منتصف أكتوبر"
+    ],
+    "answer_keywords": [
+      "September"
+    ]
+  },
+  {
+    "id": "q17",
+    "type": "in_domain",
+    "question": "When should olives be harvested for oil extraction?",
+    "expected_keywords": [
+      "لاستخراج الزيت فى شهر نوفمبر",
+      "عندما يكتمل حجم الثمار ويتحول لونها"
+    ],
+    "answer_keywords": [
+      "November",
+      "December",
+      "colo",
+      "size"
+    ]
+  },
+  {
+    "id": "q18",
+    "type": "in_domain",
+    "question": "What are some examples of organic manure?",
+    "expected_keywords": [
+      "Examples of organic manure"
+    ],
+    "answer_keywords": [
+      "farmyard manure",
+      "compost",
+      "vermicompost",
+      "green manure",
+      "cow dung"
+    ]
+  },
+  {
+    "id": "q19",
+    "type": "in_domain",
+    "question": "كم طنا من السماد العضوي يضاف لكل هكتار عند زراعة البطاطس؟",
+    "expected_keywords": [
+      "إضافة 20 إلى 30 طنا"
+    ],
+    "answer_keywords": [
+      "20",
+      "30"
+    ]
+  },
+  {
+    "id": "q20",
+    "type": "in_domain",
+    "question": "How much arable land has the world lost over the past 40 years?",
+    "expected_keywords": [
+      "430 million hectares"
+    ],
+    "answer_keywords": [
+      "430 million",
+      "a third",
+      "one third"
+    ]
+  },
+  {
+    "id": "q21",
+    "type": "in_domain",
+    "question": "What are the main principles of conservation agriculture?",
+    "expected_keywords": [
+      "minimum mechanical soil disturbance"
+    ],
+    "answer_keywords": [
+      "tillage",
+      "soil cover",
+      "rotation",
+      "diversif"
+    ]
+  },
+  {
+    "id": "q22",
+    "type": "in_domain",
+    "question": "What is seed treatment and why is it used?",
+    "expected_keywords": [
+      "Seed treatment is usages",
+      "concept of seed treatment"
+    ],
+    "answer_keywords": [
+      "disease",
+      "pest",
+      "seedling",
+      "soil"
+    ]
+  },
+  {
+    "id": "q23",
+    "type": "in_domain",
+    "question": "ما كمية نترات النشادر الأسبوعية لأشجار الموالح من أول يونيو حتى 15 يونيو؟",
+    "expected_keywords": [
+      "نترات نشادر اول يونيو 15 يونيو"
+    ],
+    "answer_keywords": [
+      "9 كجم",
+      "9 kg",
+      "9كجم"
+    ]
+  },
+  {
+    "id": "q24",
+    "type": "in_domain",
+    "question": "كيف أمنع الآفات من اكتساب مقاومة للمبيدات؟",
+    "expected_keywords": [
+      "التناوب بين مجموعات المبيدات",
+      "في تناوب (تطبيقات متبادلة)",
+      "وتتطلب السيطرة على المقاومة ما يلي",
+      "تكتيكات إدارة السيطرة على مقاومة الآفات"
+    ],
+    "answer_keywords": [
+      "تناوب",
+      "مخاليط",
+      "مجموعات",
+      "مجاميع",
+      "طرق فعل",
+      "الإدارة المتكاملة",
+      "الضغط الانتخابي"
+    ]
+  },
+  {
+    "id": "q25",
+    "type": "in_domain",
+    "question": "ما القيم التي أطلبها من معمل تحليل التربة؟",
+    "expected_keywords": [
+      "تطلب من المعمل قيم"
+    ],
+    "answer_keywords": [
+      "pH",
+      "EC",
+      "الملوحة"
+    ]
+  },
+  {
+    "id": "q26",
+    "type": "in_domain",
+    "question": "How many people live in areas where land degradation contributes to crop yield losses?",
+    "expected_keywords": [
+      "1.7 billion people"
+    ],
+    "answer_keywords": [
+      "1.7 billion"
+    ]
+  },
+  {
+    "id": "q27",
+    "type": "in_domain",
+    "question": "What counts as personal protective equipment when handling pesticides?",
+    "expected_keywords": [
+      "Personal protective equipment means"
+    ],
+    "answer_keywords": [
+      "clothes",
+      "devices",
+      "protection",
+      "exposure"
+    ]
+  },
+  {
+    "id": "q28",
+    "type": "out_of_scope",
+    "question": "Who won the 2022 FIFA World Cup?",
+    "expected_keywords": []
+  },
+  {
+    "id": "q29",
+    "type": "out_of_scope",
+    "question": "ما هي عاصمة فرنسا؟",
+    "expected_keywords": []
+  },
+  {
+    "id": "q30",
+    "type": "out_of_scope",
+    "question": "كيف أبدأ مشروع تربية النحل لإنتاج العسل؟",
+    "expected_keywords": []
+  },
+  {
+    "id": "q31",
+    "type": "out_of_scope",
+    "question": "How do I start a tilapia fish farm?",
+    "expected_keywords": []
+  },
+  {
+    "id": "q32",
+    "type": "out_of_scope",
+    "question": "كيف أحصن الدواجن ضد مرض النيوكاسل؟",
+    "expected_keywords": []
+  }
+]

@@ -1,0 +1,31 @@
+# Look and feel from DESIGN.md ("Auros"): a deep-teal surface stack (abyss -> deep -> kelp), silver body
+# text, white medium-weight headings, 6px controls / 16px cards and no shadows. The rest of the styling
+# (cards, labels, stats, the aurora button) is CSS at the top of app.py.
+[theme]
+base = "dark"
+primaryColor = "#CBFFFC"
+backgroundColor = "#012624"
+secondaryBackgroundColor = "#003734"
+textColor = "#BBC7C6"
+linkColor = "#CBFFFC"
+linkUnderline = false
+borderColor = "#1D4744"
+showWidgetBorder = true
+baseRadius = "6px"
+buttonRadius = "6px"
+# Inter stands in for Matter (DESIGN.md's suggested substitute). Streamlit takes one web font here;
+# IBM Plex Sans Arabic is added for Arabic text in app.py's CSS.
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+headingFontWeights = [500, 500, 500, 500, 500, 500]
+codeBackgroundColor = "#011D1C"
+showSidebarBorder = false
+
+[theme.sidebar]
+backgroundColor = "#011D1C"
+secondaryBackgroundColor = "#003734"
+
+[server]
+headless = true
+
+[client]
+toolbarMode = "minimal"

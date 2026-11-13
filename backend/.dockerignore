@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.log
+.pytest_cache/
+tests/
+data/uploads
+data/feedback.jsonl
+data/learned
