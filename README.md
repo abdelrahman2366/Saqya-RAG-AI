@@ -933,7 +933,7 @@ evaluation tests exactly what the API serves.
 |---|---|
 | `/health` says `vector_store_loaded: false` | Run the notebook — it creates `backend/data/vector_store/rag_config.json` |
 | `Cannot reach Ollama` | Start the Ollama app or run `ollama serve` |
-| `Model 'qwen2.5:3b' not found` | `ollama pull qwen2.5:3b` |
+| `Model 'qwen2.5:7b' not found` | `ollama pull qwen2.5:7b` |
 | Every question is refused | `MIN_SIMILARITY` is too high for your data — check the calibration cell in notebook 2.4 |
 | Off-topic questions get answered | `MIN_SIMILARITY` is too low — add more out-of-scope questions and re-run the notebook |
 | Arabic text in chunks reads backwards or is empty | check the BEFORE/AFTER cell in 2.2; scanned PDFs need OCR (see Arabic support) |
