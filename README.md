@@ -289,19 +289,6 @@ House rules:
 
 ---
 
-## Roadmap
-
-- [x] Hybrid retrieval with reranking and query expansion
-- [x] Egyptian Arabic understanding and voice
-- [x] Claim-level answer checks and calibrated confidence
-- [x] Reproducible evaluation framework
-- [ ] **Plant-disease detection from photos** (in progress; the API endpoint is ready)
-- [ ] Fine-tuned embeddings for Egyptian agricultural Arabic
-- [ ] More evaluation questions from real farmers
-- [ ] Mobile-friendly interface
-
----
-
 ## Acknowledgements
 
 - Arabic crop-production bulletins and English agricultural guides, including FAO publications (the International
