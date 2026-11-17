@@ -15,7 +15,7 @@ replies in the same language, citing the document and page it came from.
 ![Tests](https://img.shields.io/badge/tests-307%20passing-2EA44F)
 
 [Features](#features) · [How it works](#how-it-works) · [Results](#results) · [Quick start](#quick-start) ·
-[API](#api) · [Team](#for-the-team) · [Roadmap](#roadmap)
+[API](#api) · [Team](#for-the-team) 
 
 </div>
 
