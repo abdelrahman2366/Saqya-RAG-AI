@@ -32,6 +32,17 @@ class Settings(BaseSettings):
     min_similarity: float | None = None
     # Keyword (BM25) search fused with the embedding search. false = embeddings only.
     hybrid_search: bool = True
+    # Reciprocal Rank Fusion constant k (score = 1 / (k + rank)) and how many chunks the embedding and keyword
+    # searches each contribute before fusing. 60 / 30 are the values the app has always used.
+    rrf_k: int = 60
+    retrieval_candidates: int = 30
+    # BM25 parameters (term-frequency saturation k1, length normalisation b); 1.5 / 0.75 are the app's values
+    bm25_k1: float = 1.5
+    bm25_b: float = 0.75
+    # Weight of the keyword ranking in the fusion (1 = equal to the embeddings, 0 = embeddings only) and whether the best
+    # keyword match always keeps a place. 1.0 / true are the app's original behaviour.
+    keyword_weight: float = 1.0
+    keyword_seat: bool = True
 
     # Local LLM (Ollama). qwen2.5 handles Arabic and English.
     ollama_host: str = "http://localhost:11434"
@@ -93,6 +104,61 @@ class Settings(BaseSettings):
     # When no source answers a farming question, let the LLM answer from general knowledge (marked as such)
     general_knowledge: bool = True
 
+    # ---- Optional AI/ML layers (docs/ai-ml-engineering-report.md). All off by default: each is turned on only
+    # after scripts/evaluate.py shows it helps on your machine. With all of them off the pipeline is unchanged.
+    # Cross-encoder reranking of the search's candidates (reranker.py). Needs the model on disk:
+    # python scripts/download_models.py reranker
+    reranker_enabled: bool = False
+    reranker_model: str = "BAAI/bge-reranker-v2-m3"
+    reranker_candidates: int = 30          # passages the search hands to the reranker (it keeps top_k)
+    reranker_batch_size: int = 16
+    reranker_max_length: int = 512         # tokens per question+passage pair
+    reranker_device: str = "auto"          # auto (GPU when there is one) / cpu / cuda
+    reranker_allow_download: bool = False  # true: fetch the model from Hugging Face on first use
+    reranker_trust_remote_code: bool = False   # needed by jinaai/jina-reranker-v2-base-multilingual
+    # Extra search phrasings built from the glossary and the bulletins' own headings (query_expansion.py); no LLM
+    query_expansion_enabled: bool = False
+    query_expansion_max_variants: int = 2
+    query_expansion_max_terms: int = 4
+    query_expansion_weight: float = 0.25   # an expansion's weight next to the farmer's own wording (always < 1)
+    # Return the structured reading of the question (crop, categories, intent, conditions) with each answer
+    query_classification_enabled: bool = False
+    # A verdict per statement of each sourced answer (claims.py); the NLI model is optional on top of it
+    claim_verification_enabled: bool = False
+    claim_verification_nli: bool = False
+    nli_model: str = "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7"
+    nli_allow_download: bool = False
+    # answer / qualify / ask / abstain from calibrated signals (confidence.py). The calibration file is written
+    # by: python scripts/evaluate.py --calibrate
+    confidence_calibration_enabled: bool = False
+    confidence_calibration_file: Path = Path("data/confidence_calibration.json")
+    # Search a second collection embedded with a fine-tuned model (scripts/finetune_embeddings.py and
+    # scripts/build_collection.py make them). The original collection and model are never modified; if the
+    # model or the collection is missing, the original pipeline is used.
+    fine_tuned_embeddings_enabled: bool = False
+    fine_tuned_store_dir: Path = Path("data/vector_store_finetuned")   # its rag_config.json names model and collection
+
+    # ---- Plant-disease detection from photos (computer vision; docs/computer-vision-handoff.md). No model ships with
+    # the project yet: put a Hugging Face image-classification model in models/plant-disease/ and set VISION_ENABLED.
+    vision_enabled: bool = False
+    vision_model: str = "models/plant-disease"
+    vision_device: str = "auto"
+    vision_allow_download: bool = False
+    # placeholder: set it from your validation photos (the confidence at which predictions are right often enough)
+    vision_min_confidence: float = 0.7
+    vision_top_k: int = 3
+    vision_max_mb: float = 10.0
+
+    # ---- Observability: LangSmith tracing of every stage of an answer (optional: pip install langsmith).
+    # Off unless LANGSMITH_TRACING_ENABLED=true AND an API key is set. The app never depends on it: if LangSmith is
+    # missing or unreachable, answers are unchanged. Stage timings are logged either way.
+    langsmith_tracing_enabled: bool = False
+    langsmith_api_key: str | None = None
+    langsmith_project: str = "saqya-ai"
+    langsmith_endpoint: str | None = None      # e.g. https://eu.api.smith.langchain.com for the EU region
+    langsmith_log_text: bool = True            # false: questions and answers are sent as their length only
+    langsmith_passage_chars: int = 200         # characters of each passage sent (0: only source, page and scores)
+
     # ---- Documents attached in the chat (temporary: cleaned, kept for the chat session, then deleted)
     # Folder for the clean PDFs, one sub-folder per chat session; emptied at startup and shutdown.
     # Empty = <system temp folder>/saqya-uploads
@@ -129,6 +195,16 @@ class Settings(BaseSettings):
         path = self.uploads_dir
         if not path or not str(path).strip():
             return Path(tempfile.gettempdir()) / "saqya-uploads"
+        return path if path.is_absolute() else BACKEND_DIR / path
+
+    @property
+    def fine_tuned_store_path(self) -> Path:
+        path = self.fine_tuned_store_dir
+        return path if path.is_absolute() else BACKEND_DIR / path
+
+    @property
+    def confidence_calibration_path(self) -> Path:
+        path = self.confidence_calibration_file
         return path if path.is_absolute() else BACKEND_DIR / path
 
     @property

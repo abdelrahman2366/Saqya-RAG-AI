@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -27,6 +28,7 @@ from typing import Protocol, Sequence
 import chromadb
 import numpy as np
 
+from app.core.tracing import tracer
 from app.services.glossary import crops_in, remove_terms, synonyms
 from app.services.lexical import BM25Index
 from app.utils.text import detect_language
@@ -55,6 +57,7 @@ class RetrievedChunk:
     url: str = ""     # a web page (the web search and what was learned from it); source is then its site
     title: str = ""   # the web page's or learned document's title
     kind: str = ""    # "" (the library or an attached document), "web" or "learned"
+    rerank_score: float | None = None   # the cross-encoder's score when reranking is on (reranker.py)
 
     @property
     def label(self) -> str:
@@ -200,8 +203,20 @@ class Retriever:
     crop_seats_from = 1          # questions naming this many crops (with documents) get per-crop seats
     single_crop_seats = 3        # seats for the passages of the one crop a question names
 
-    def __init__(self, collection, embedder: Embedder, config: dict, hybrid: bool = True) -> None:
+    def __init__(self, collection, embedder: Embedder, config: dict, hybrid: bool = True,
+                 rrf_k: int = RRF_K, candidates: int = CANDIDATES, bm25_k1: float = 1.5, bm25_b: float = 0.75,
+                 keyword_weight: float = 1.0, keyword_seat: bool = True) -> None:
         self.collection = collection
+        # RRF constant and how many chunks each ranked list contributes before fusing (RRF_K / RETRIEVAL_CANDIDATES
+        # in .env; scripts/evaluate.py --tune compares values on the validation questions)
+        self.rrf_k = max(1, int(rrf_k))
+        self.candidates = max(1, int(candidates))
+        self.bm25_k1, self.bm25_b = float(bm25_k1), float(bm25_b)   # BM25 term-frequency saturation and length normalisation
+        # How much the keyword ranking counts in the fusion next to the embedding ranking (1 = equal, 0 = embeddings
+        # only), and whether the best keyword match always keeps a place in the results (KEYWORD_WEIGHT / KEYWORD_SEAT;
+        # scripts/evaluate.py --tune compares them on the validation questions)
+        self.keyword_weight = max(0.0, float(keyword_weight))
+        self.keyword_seat = bool(keyword_seat)
         self.embedder = embedder
         self.config = config
         self.embedding_model = config.get("embedding_model", "")
@@ -239,6 +254,12 @@ class Retriever:
         embedding_model: str | None = None,
         embedder: Embedder | None = None,
         hybrid: bool = True,
+        rrf_k: int = RRF_K,
+        candidates: int = CANDIDATES,
+        bm25_k1: float = 1.5,
+        bm25_b: float = 0.75,
+        keyword_weight: float = 1.0,
+        keyword_seat: bool = True,
     ) -> "Retriever":
         """Open the store the notebook wrote (what the API does at startup)."""
         config = load_rag_config(vector_store_dir)
@@ -250,7 +271,8 @@ class Retriever:
         client = chromadb.PersistentClient(path=str(vector_store_dir))
         collection = client.get_collection(collection_name or config["collection_name"], embedding_function=None)
         retriever = cls(collection, embedder or load_embedder(embedding_model or config["embedding_model"]),
-                        config, hybrid=hybrid)
+                        config, hybrid=hybrid, rrf_k=rrf_k, candidates=candidates,
+                        bm25_k1=bm25_k1, bm25_b=bm25_b, keyword_weight=keyword_weight, keyword_seat=keyword_seat)
         logger.info("Vector store loaded: collection=%s chunks=%d model=%s hybrid=%s",
                     collection.name, retriever.count(), retriever.embedding_model, hybrid)
         return retriever
@@ -260,7 +282,7 @@ class Retriever:
         self._ids = list(data["ids"])
         self._texts = list(data["documents"])
         self._metas = [m or {} for m in data["metadatas"]]
-        self.bm25 = BM25Index([keyword_text(t, m) for t, m in zip(self._texts, self._metas)])
+        self.bm25 = BM25Index([keyword_text(t, m) for t, m in zip(self._texts, self._metas)], k1=self.bm25_k1, b=self.bm25_b)
 
     def count(self) -> int:
         return self.collection.count()
@@ -271,9 +293,9 @@ class Retriever:
         )
 
     # ------------------------------------------------------------------ the two searches
-    def dense_search(self, query_vec: np.ndarray, n: int = CANDIDATES, topic: str | None = None) -> list[RetrievedChunk]:
+    def dense_search(self, query_vec: np.ndarray, n: int | None = None, topic: str | None = None) -> list[RetrievedChunk]:
         """Chunks ranked by cosine similarity to one query embedding (only one topic's, if given)."""
-        n = max(1, min(n, self.count()))
+        n = max(1, min(n or self.candidates, self.count()))
         res = self.collection.query(
             query_embeddings=[query_vec.tolist()], n_results=n,
             include=["documents", "metadatas", "distances"],
@@ -284,10 +306,11 @@ class Retriever:
             for cid, text, meta, dist in zip(res["ids"][0], res["documents"][0], res["metadatas"][0], res["distances"][0])
         ]
 
-    def keyword_search(self, query: str, n: int = CANDIDATES, topic: str | None = None) -> list[tuple[int, float]]:
+    def keyword_search(self, query: str, n: int | None = None, topic: str | None = None) -> list[tuple[int, float]]:
         """(position, BM25 score) of the best keyword matches; glossary synonyms are added."""
-        if self.bm25 is None:
+        if self.bm25 is None or not query.strip():
             return []
+        n = n or self.candidates
         extra = synonyms(query, detect_language(query))
         allowed = self._topic_rows.get(topic, np.array([], dtype=int)) if topic else None
         return self.bm25.top(" ".join([query, *extra]), n, allowed)
@@ -298,7 +321,8 @@ class Retriever:
         return [c for c in self.dense_search(self.embed_query(question), top_k) if c.score >= min_similarity]
 
     def search(self, queries: list[str], top_k: int = 4, hybrid: bool | None = None,
-               fusion: str = "max", balance: bool = True, topic: str | None = None) -> SearchResult:
+               fusion: str = "max", balance: bool = True, topic: str | None = None,
+               weights: Sequence[float] | None = None) -> SearchResult:
         """Fuse the searches for all phrasings and return the top_k chunks (no relevance gate).
 
         For one phrasing, the embedding and keyword rankings are complementary evidence, so their
@@ -315,35 +339,72 @@ class Retriever:
         that crop's documents, and each crop gets seats for its best passages: one ranking for the whole
         question tends to fill all seats with one crop, or with general text matching the shared words
         ("hybrid seed"). `topic` limits a search to one topic's documents.
+
+        `weights` (one per phrasing, default all 1) scale a phrasing's fused score: query expansions get less
+        than 1, so they can add a passage but never outrank what the farmer's own wording found equally well.
         """
+        weights = list(weights) if weights is not None else [1.0] * len(queries)
+        if len(weights) != len(queries):
+            raise ValueError("weights must have one value per query")
         hybrid = self.hybrid if hybrid is None else hybrid
+        if self.keyword_weight <= 0:
+            hybrid = False   # KEYWORD_WEIGHT=0: the embedding ranking alone
+        if not queries or not any(q.strip() for q in queries):
+            return SearchResult()
         fused: dict[str, float] = defaultdict(float)
+        extra: dict[str, float] = defaultdict(float)   # scores from query expansions (weight < 1)
         found: dict[str, RetrievedChunk] = {}
         vecs = [self.embed_query(q) for q in queries]
         keyword_best: list[str] = []
+        gate_scores: list[float] = []
         seat_from = 0  # whose best keyword match gets the seat: the farmer's own wording...
         if topic:      # ...or, inside one topic's documents, the phrasing in their language
             seat_from = next((i for i, q in enumerate(queries) if detect_language(q) == self._topic_lang.get(topic)), 0)
 
+        dense_ms = keyword_ms = 0.0
+        dense_top: list[list[str]] = []
+        keyword_top: list[list[str]] = []
         for qi, (query, vec) in enumerate(zip(queries, vecs)):
             per_query: dict[str, float] = defaultdict(float)
-            for rank, chunk in enumerate(self.dense_search(vec, topic=topic)):
-                per_query[chunk.chunk_id] += 1.0 / (RRF_K + rank + 1)
+            started = time.perf_counter()
+            dense = self.dense_search(vec, topic=topic)
+            dense_ms += (time.perf_counter() - started) * 1000
+            dense_top.append([c.chunk_id for c in dense[:5]])
+            for rank, chunk in enumerate(dense):
+                per_query[chunk.chunk_id] += 1.0 / (self.rrf_k + rank + 1)
+                if weights[qi] >= 1.0 and chunk.score == chunk.score:
+                    gate_scores.append(chunk.score)
                 if chunk.chunk_id not in found or chunk.score > found[chunk.chunk_id].score:
                     found[chunk.chunk_id] = chunk
             if hybrid:
-                for rank, (i, _) in enumerate(self.keyword_search(query, topic=topic)):
+                started = time.perf_counter()
+                keyword = self.keyword_search(query, topic=topic)
+                keyword_ms += (time.perf_counter() - started) * 1000
+                keyword_top.append([self._ids[i] for i, _ in keyword[:5]])
+                for rank, (i, _) in enumerate(keyword):
                     cid = self._ids[i]
-                    if rank == 0 and (qi == seat_from or (self.keyword_seats == "all" and topic is None)):
+                    if self.keyword_seat and rank == 0 and (qi == seat_from or (self.keyword_seats == "all" and topic is None)):
                         keyword_best.append(cid)
-                    per_query[cid] += 1.0 / (RRF_K + rank + 1)
+                    per_query[cid] += self.keyword_weight / (self.rrf_k + rank + 1)
                     found.setdefault(cid, _chunk(cid, self._texts[i], self._metas[i], float("nan")))
+            target = fused if weights[qi] >= 1.0 else extra
             for cid, score in per_query.items():
-                fused[cid] = max(fused[cid], score) if fusion == "max" else fused[cid] + score
+                target[cid] = max(target[cid], score) if fusion == "max" else target[cid] + score
+        # Query expansions (weight < 1) add evidence instead of competing: a passage's score is its best score for the
+        # farmer's own wording plus `weight` x its best score for an expansion. A passage both find rises; one only an
+        # expansion finds can enter, but needs a strong match; with no expansion nothing changes.
+        if extra:
+            w = max(w for w in weights if w < 1.0)
+            for cid, score in extra.items():
+                fused[cid] += w * score
 
-        best_similarity = max((c.score for c in found.values() if c.score == c.score), default=0.0)
+        # the relevance gate judges the farmer's own wording (and its translation): a query expansion — a phrasing
+        # with a weight below 1 — may add passages but must not open the gate
+        best_similarity = max(gate_scores, default=0.0)
         named = []
-        for query in queries:
+        for query, weight in zip(queries, weights):
+            if weight < 1.0:
+                continue
             named += [t.en for t in crops_in(query, detect_language(query)) if t.en in self.topic_crops and t.en not in named]
         if hybrid:
             ranked = sorted(fused, key=fused.get, reverse=True)[:top_k]
@@ -357,6 +418,12 @@ class Retriever:
         if balance and topic is None and len(named) >= self.crop_seats_from:
             chunks = self._balanced(queries, top_k, hybrid, named, chunks)
         self._fill_missing_scores(chunks, vecs)
+        span = tracer.current()
+        if span is not None and topic is None:   # what each search found, for the trace of the retrieval stage
+            span.set(dense_ms=round(dense_ms, 1), keyword_ms=round(keyword_ms, 1), dense_top5=dense_top,
+                     keyword_top5=keyword_top, fused_top=[c.chunk_id for c in chunks], rrf_k=self.rrf_k,
+                     keyword_weight=self.keyword_weight, keyword_seat=self.keyword_seat,
+                     candidates=self.candidates, named_crops=named)
         return SearchResult(chunks=chunks, best_similarity=round(best_similarity, 4), named_crops=named)
 
     def _balanced(self, queries: list[str], top_k: int, hybrid: bool, named: list[str],
@@ -390,7 +457,7 @@ class Retriever:
         return None
 
     def retrieve_many(self, queries: list[str], top_k: int = 4, min_similarity: float = 0.0,
-                      topic: str | None = None) -> list[RetrievedChunk]:
+                      topic: str | None = None, weights: Sequence[float] | None = None) -> list[RetrievedChunk]:
         """Top_k chunks for the question, or [] when nothing reaches min_similarity (off-topic).
 
         `topic` (a crop the farmer chose in the UI) limits the search to that crop's documents; choosing a
@@ -398,10 +465,10 @@ class Retriever:
         """
         label = self.topic_label(topic)
         if label:
-            result = self.search(queries, top_k, topic=label)
+            result = self.search(queries, top_k, topic=label, weights=weights)
             result.named_crops = result.named_crops or [label.split(" / ")[-1]]
         else:
-            result = self.search(queries, top_k)
+            result = self.search(queries, top_k, weights=weights)
         return result.chunks if result.passes(min_similarity) else []
 
     def library(self) -> dict:

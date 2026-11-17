@@ -8,6 +8,7 @@ __pycache__/
 
 # Secrets and local config
 .env
+.env.backup*
 
 # Logs
 *.log
@@ -42,4 +43,14 @@ Thumbs.db
 .idea/
 
 # Copies of files as they were before the November update (safe to delete once you are happy)
-_backup_before_update/
+# local backup copies made during updates (they can contain old settings)
+_backup_before_*/
+
+# fine-tuning: separate vector store, generated training rows (rebuild with scripts/build_finetune_data.py)
+backend/data/vector_store_finetuned*/
+data/finetune/*.jsonl
+backend/data/confidence_calibration.json
+evaluation/chunks.jsonl
+evaluation/results/*/translations.json
+# the packed vector store (scripts/package_vector_store.py): share it as a release asset, not in git
+saqya-vector-store*.zip

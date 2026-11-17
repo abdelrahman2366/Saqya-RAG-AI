@@ -1,0 +1,26 @@
+﻿id,question,answer,sources,correct (y/n),faithful to sources (y/n),safe to act on (y/n),notes
+q04,كم كيلو تقاوي قمح يحتاج الفدان تحت نظام الري المحوري (البيفوت)؟,"- 125 كيلو [4][6]
+- يزيد بنسبة 25٪ في حالة الزراعة المتأخرة [4]","[4] 917873240-Key-Fact.pdf, pp. 19-20 ; [6] NEW_wheat_new.pdf, p. 16",,,,
+q08,متى يزرع بنجر السكر؟,يُزرع بنجر السكر من أغسطس وحتى منتصف نوفمبر [1].,"[1] 1-نشرة-بنجر-السكر_compressed.pdf, p. 5",,,,
+q16,كم كيلو تقاوي يحتاج فدان الذرة الرفيعة؟,يحتاج الفدان من 10-7 كيلو جرام من الأصناف طويلة الساق و7 كيلو جرام من الهجن والأصناف قصيرة الساق [1].,"[1] الذرة-الرفيعة-نهائي_compressed.pdf, p. 3",,,,
+q28,ما درجة الحرارة المثلى لإنبات بذور الفلفل؟,درجة الحرارة المثلى لإنبات بذور الفلفل تتراوح بين 20-30 درجة مئوية [1].,"[1] الفلفل-16_compressed.pdf, p. 5",,,,
+q34,بعد كم يوم تنضج ثمار الكانتلوب المزروعة تحت الأنفاق؟,ينضج الكانتلوب المزروع تحت الأنفاق بعد حوالي 110-90 يوم من زراعة الشتلات [1].,"[1] الكانتلوب.pdf, p. 7",,,,
+q39,متى تجرى عملية أقلمة شتلات الخضر قبل نقلها من المشتل؟,عملية الأقلمة تجرى قبل نقل الشتلات ب 10–15 يوم [1].,"[1] NEW_vegetable_nurseries.pdf, p. 21",,,,
+q51,كم يوما تحتاج ثمرة البلح من التلقيح حتى الحصاد؟,تستغرق ثمرة البلح بين 180 و210 يوم من التلقيح حتى الحصاد [1][4].,"[1] نخيل-البلح-نشر.pdf, p. 3 ; [4] نخيل-البلح-نشر.pdf, p. 3",,,,
+q56,What are the main principles of conservation agriculture?,"- The main principles of conservation agriculture include minimum mechanical soil disturbance (no/zero tillage), maintaining a permanent soil cover, and crop rotations or diversification [1][5].
+- These practices help prevent land degradation while enhancing biodiversity and natural biological processes above and below the ground surface [5] [2].","[1] AGRI_014_PDF.pdf, p. 2 ; [5] AGRI_014_PDF.pdf, p. 1 ; [2] AGRI_014_PDF.pdf, p. 3",,,,
+q64,Does magnetic irrigation water change maize plant height?,"- Yes, magnetic irrigation water can increase maize plant height [4][5].
+- However, this effect was significant for leaves per plant but not for plant height itself when comparing different seasons and treatments [3][4].","[4] 2.pdf, p. 7 ; [5] 2.pdf, p. 4 ; [3] 2.pdf, p. 6",,,,
+q70,What causes blossom end rot in tomatoes?,"Blossom end rot is caused by a lack of calcium either because it's not present in the soil or due to factors that affect its absorption from the soil, such as salinity [1]. It can also occur due to irregular watering and exposure to drought periods [1].","[1] NEW_tomato.pdf, p. 21",,,,
+q77,كم لترا من الحليب تعطي جاموسة المورا يوميا؟,لا تتوفر لدي معلومات كافية في مستنداتي للإجابة على هذا السؤال. حاول إعادة صياغة سؤالك مع ذكر اسم المحصول أو المشكلة، أو استشر المرشد الزراعي في منطقتك.,,,,,
+q83,كيف أحصن الدواجن ضد مرض النيوكاسل؟,لا تتوفر لدي معلومات كافية في مستنداتي للإجابة على هذا السؤال. حاول إعادة صياغة سؤالك مع ذكر اسم المحصول أو المشكلة، أو استشر المرشد الزراعي في منطقتك.,,,,,
+q87,كيف أتعلم البرمجة بلغة بايثون؟,لا تتوفر لدي معلومات كافية في مستنداتي للإجابة على هذا السؤال. حاول إعادة صياغة سؤالك مع ذكر اسم المحصول أو المشكلة، أو استشر المرشد الزراعي في منطقتك.,,,,,
+e05,لو هزرع القمح نقر على مصاطب، أحط كام كيلو تقاوي؟,"- 45 كجم للفدان [1][2]
+- واستطاع بعض المزارعين استخدام 30 كجم فقط للفدان للزراعة بالنقر [1][2]","[1] القمح-قديم-2022_compressed.pdf, p. 11 ; [2] NEW_wheat_new.pdf, pp. 10-11",,,,
+e10,القصب الخريفي بيتزرع إمتى؟,لا تتوفر لدي معلومات كافية في مستنداتي للإجابة على هذا السؤال. حاول إعادة صياغة سؤالك مع ذكر اسم المحصول أو المشكلة، أو استشر المرشد الزراعي في منطقتك.,,,,,
+e24,الفدان عايز كام جرام بذرة أوطة هجين؟,يحتاج الفدان عند الزراعة بالهجن إلى 50-35 جرام بذور [2].,"[2] NEW_tomato.pdf, p. 11",,,,
+e29,أقسي شتلات البتنجان إزاي قبل ما أنقلها الأرض المستديمة؟,"- قطع الري عن الشتلات قبل نقلها للأرض المستديمة بأسبوع على الأقل أو رفع الغطاء عنها تدريجيًا قبل النقل [2].
+- ينصح برش الشتلات بمحلول سكري 10% خاصة عند نقل الشتلات لمسافات بعيدة أو تعذر زراعة الشتلات بعد تقليعها أو في حالة إجراء الشتل أثناء ارتفاع الحرارة [2].","[2] الباذنجان-17_compressed_compressed_compressed.pdf, p. 10",,,,
+e35,فدان البطاطس في العروة الصيفي عايز كام كيلو تقاوي؟,احتاج إلى حوالى 800-750 كيلو جرام من التقاوى لزراعة الفدان في العروة الصيفية [1].,"[1] البطاطس_compressed.pdf, p. 12",,,,
+e42,أحط كام طن سباخ للهكتار وأنا بزرع البطاطس؟,يجب إضافة 20 إلى 30 طنا من السماد العضوي الحيواني للهكتار عند زراعة البطاطس [1].,"[1] ticket_file6214bd8f64479-Pomme-de-terre-Ardna (1).pdf, pp. 4-5",,,,
+e52,الـ EC بتاع الأرض بيقيس إيه؟,الـ EC الأرض يقيس تركيز الملح في محلول التربة [2][5].,"[2] 917873240-Key-Fact.pdf, pp. 50-51 ; [5] farmerbook.pdf, p. 56",,,,

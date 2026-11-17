@@ -113,6 +113,17 @@ class AgriAPIClient:
             form["learn"] = "true"
         return self._request("POST", "/documents", files=files, data=form, timeout=max(self.timeout, 900))
 
+    def diagnose_image(self, filename: str, data: bytes, mime: str | None = None, crop: str | None = None,
+                       language: str = "ar", advice: bool = True) -> dict:
+        """Plant-disease detection from a photo (POST /vision/diagnose): top labels with probabilities, whether the
+        model is confident, the message for the farmer and, when confident, treatment advice (a /query answer).
+        Not used by the chat UI yet: see docs/computer-vision-handoff.md."""
+        files = {"file": (filename, data, mime or "image/jpeg")}
+        form = {"language": language, "advice": "true" if advice else "false"}
+        if crop:
+            form["crop"] = crop
+        return self._request("POST", "/vision/diagnose", files=files, data=form, timeout=max(self.timeout, 300))
+
     def documents(self, session: str | None = None) -> list[dict]:
         params = {"session": session} if session else {}
         return self._request("GET", "/documents", params=params, timeout=15).get("documents", [])

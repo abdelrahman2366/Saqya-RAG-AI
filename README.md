@@ -21,6 +21,15 @@ Key Features
 
 ⸻
 
+👥 For the team
+
+* New to the project? [ONBOARDING.md](ONBOARDING.md) gets SAQYA running on a new machine in about an hour.
+* Working on plant-disease detection from photos? Start with [docs/computer-vision-handoff.md](docs/computer-vision-handoff.md).
+* AI/ML design, evaluation and measured results: [docs/ai-ml-engineering.md](docs/ai-ml-engineering.md).
+* Full technical reference (API, settings, grounding, troubleshooting): [docs/technical-reference.md](docs/technical-reference.md).
+
+⸻
+
 🛠️ Tech Stack
 
 Component	Technology
@@ -115,6 +124,9 @@ Run the final notebook using Kernel → Restart & Run All.
 The generated vector database is saved in:
 
 backend/data/vector_store/
+
+Team members can skip the notebooks: download saqya-vector-store.zip from the repository's Releases page and unzip
+it into backend/ (see ONBOARDING.md).
 
 Note: The original PDFs, cleaned PDFs, fine-tuned models, and generated vector database are not included in the Git repository. They must be prepared locally.
 
@@ -313,6 +325,7 @@ Saqya-RAG-AI/
 │   ├── data/
 │   │   └── vector_store/
 │   │
+│   ├── scripts/          (evaluation, fine-tuning, model download, packaging)
 │   ├── tests/
 │   ├── requirements.txt
 │   ├── .env.example
@@ -325,7 +338,13 @@ Saqya-RAG-AI/
 │   └── eval_questions_egyptian.json
 │
 ├── docs/
+│   ├── ai-ml-engineering.md
+│   ├── computer-vision-handoff.md
+│   ├── technical-reference.md
 │   └── screenshots/
+│
+├── evaluation/
+│   └── results/          (evaluation reports: JSON, CSV, Markdown)
 │
 ├── frontend/
 │   ├── app.py
@@ -344,8 +363,31 @@ Saqya-RAG-AI/
 │   ├── rag_pipeline.ipynb
 │   └── results/
 │
+├── ONBOARDING.md
 ├── requirements.txt
 └── README.md
+
+⸻
+
+🧠 AI/ML Improvements and Evaluation
+
+Measured on the project's evaluation questions (test split, never used to choose settings):
+
+| | Original search | Improved search |
+|---|---|---|
+| Recall@5 | 0.797 | 0.934 |
+| MRR@10 | 0.792 | 0.920 |
+| Correct answers | 76.9% | 82.7% |
+| Right passage given to the LLM | 84.6% | 92.3% |
+
+* Cross-encoder reranking (BAAI/bge-reranker-v2-m3), query expansion and tuned hybrid-search weights.
+* Query understanding (crop, intent, symptoms, missing information) and claim-level answer checks.
+* Calibrated confidence: answers, adds a caution, asks back when the crop is missing, or abstains.
+* Optional LangSmith tracing of every stage.
+* A reproducible evaluation framework: python backend/scripts/evaluate.py
+
+Every layer is optional and set in backend/.env; python backend/scripts/enable_ai_layers.py switches on the
+evaluated settings. Details: docs/ai-ml-engineering.md.
 
 ⸻
 

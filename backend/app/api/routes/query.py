@@ -30,6 +30,29 @@ router = APIRouter()
 _feedback_lock = threading.Lock()
 
 
+def ai_layers(rag) -> dict:
+    """Which optional AI/ML layers are on (all off by default), for /health."""
+    from app.core.tracing import tracer
+
+    if rag is None:
+        return {}
+    reranker = getattr(rag, "reranker", None)
+    confidence = getattr(rag, "confidence", None)
+    return {
+        "reranker": bool(reranker is not None and not reranker.failed),
+        "reranker_model": getattr(reranker, "model_name", None),
+        "query_expansion": bool(getattr(rag, "expansion", False)),
+        "query_classification": bool(getattr(rag, "classify", False)),
+        "claim_verification": bool(getattr(rag, "verify_claims", False)),
+        "claim_verification_nli": getattr(rag, "nli", None) is not None,
+        "confidence_calibration": confidence is not None,
+        "confidence_calibrated": bool(confidence is not None and confidence.calibration is not None),
+        "embedding_model": getattr(rag.retriever, "embedding_model", None),
+        "langsmith_tracing": tracer.active,
+        "vision": get_settings().vision_enabled,
+    }
+
+
 @router.get("/health", response_model=HealthResponse, tags=["system"])
 def health(request: Request) -> HealthResponse:
     settings = get_settings()
@@ -49,6 +72,7 @@ def health(request: Request) -> HealthResponse:
         "learning": knowledge is not None,
         "learned_passages": knowledge.count() if knowledge is not None else 0,
         "general_knowledge": bool(beyond is not None and beyond.general),
+        "ai_layers": ai_layers(rag),
     }
 
     if rag is None:
@@ -140,6 +164,9 @@ def to_response(result, started: float) -> QueryResponse:
         off_topic=bool(getattr(result, "off_topic", False)),
         learned=getattr(result, "learned", 0) or 0,
         latency_ms=round((time.perf_counter() - started) * 1000),
+        understanding=getattr(result, "understanding", None),
+        claims=getattr(result, "claims", None),
+        confidence=getattr(result, "confidence", None),
     )
 
 

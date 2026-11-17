@@ -75,6 +75,11 @@ class QueryResponse(BaseModel):
     off_topic: bool = Field(False, description="Refused because the question isn't about farming")
     learned: int = Field(0, description="Passages of this answer kept for later questions")
     latency_ms: int = 0
+    # optional layers (null unless turned on in .env; existing clients can ignore them)
+    understanding: dict | None = Field(None, description="QUERY_CLASSIFICATION_ENABLED: crop, categories, intent, "
+                                       "symptoms, conditions, quantities, missing information")
+    claims: dict | None = Field(None, description="CLAIM_VERIFICATION_ENABLED: a verdict per statement of the answer")
+    confidence: dict | None = Field(None, description="CONFIDENCE_CALIBRATION_ENABLED: answer / qualify / ask / abstain")
 
 
 class HealthResponse(BaseModel):
@@ -95,6 +100,7 @@ class HealthResponse(BaseModel):
     learning: bool = Field(False, description="What the web and attached documents teach is kept for later questions")
     learned_passages: int = Field(0, description="Passages learned so far")
     general_knowledge: bool = Field(False, description="The LLM may answer farming questions no source covers (marked)")
+    ai_layers: dict = Field(default_factory=dict, description="Optional AI/ML layers and whether each is on")
 
 
 class LibraryDocument(BaseModel):

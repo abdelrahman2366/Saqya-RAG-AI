@@ -1,0 +1,796 @@
+{
+  "run": "20261117-030105",
+  "date": "2026-11-17T01:09:20+00:00",
+  "dataset": {
+    "files": [
+      "data/eval_questions.json",
+      "data/eval_questions_egyptian.json"
+    ],
+    "sha256_12": "2d1ba045dd9d",
+    "questions": 143,
+    "answerable": 133,
+    "validation": 84,
+    "test": 59,
+    "seed": 13,
+    "without_matching_passage": []
+  },
+  "corpus": {
+    "source": "D:\\agri-rag-assistant\\backend\\data\\vector_store",
+    "passages": 8872,
+    "built_at": "2026-11-12T22:51:39+00:00",
+    "chunking": "section-aware with heading path (cleaned PDFs) + sentence-aware fixed-size with overlap"
+  },
+  "models": {
+    "embedding": "BAAI/bge-m3",
+    "embedding_load_s": 34.25,
+    "reranker": null,
+    "reranker_load_s": null,
+    "translation_llm": "qwen2.5:7b"
+  },
+  "settings": {
+    "rrf_k": 60,
+    "candidates": 30,
+    "bm25_k1": 1.5,
+    "keyword_weight": 0.5,
+    "keyword_seat": false,
+    "bm25_b": 0.75,
+    "rerank_candidates": 30,
+    "expansion_weight": 0.25,
+    "dialect_rewrite": true,
+    "translation": true,
+    "depth": 10
+  },
+  "versions": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "sentence_transformers": "6.2.0",
+    "torch": "2.10.0+cu128",
+    "chromadb": "1.5.9",
+    "numpy": "2.4.6",
+    "transformers": "5.22.1"
+  },
+  "experiments": {
+    "E1": {
+      "name": "dense only",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 406.8,
+      "latency": {
+        "mean_ms": 261.7,
+        "p50_ms": 247.8,
+        "p95_ms": 400.1
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.9259,
+          "hit@6": 0.9259,
+          "recall@5": 0.8397,
+          "recall@10": 0.8481,
+          "precision@5": 0.242,
+          "mrr@10": 0.8393,
+          "ndcg@10": 0.7942
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.8743,
+          "recall@10": 0.88,
+          "precision@5": 0.2571,
+          "mrr@10": 0.9057,
+          "ndcg@10": 0.8425
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.8529,
+          "hit@6": 0.8529,
+          "recall@5": 0.7574,
+          "recall@10": 0.7618,
+          "precision@5": 0.2176,
+          "mrr@10": 0.7672,
+          "ndcg@10": 0.7206
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9722,
+          "recall@10": 1.0,
+          "precision@5": 0.2667,
+          "mrr@10": 0.85,
+          "ndcg@10": 0.8615
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.8952,
+          "recall@10": 0.9143,
+          "precision@5": 0.3143,
+          "mrr@10": 0.9286,
+          "ndcg@10": 0.8475
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.9615,
+          "hit@6": 0.9615,
+          "recall@5": 0.8609,
+          "recall@10": 0.8788,
+          "precision@5": 0.2538,
+          "mrr@10": 0.8397,
+          "ndcg@10": 0.8104
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9045,
+          "recall@10": 0.9318,
+          "precision@5": 0.2182,
+          "mrr@10": 0.947,
+          "ndcg@10": 0.8969
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.9524,
+          "hit@6": 0.9524,
+          "recall@5": 0.8619,
+          "recall@10": 0.8571,
+          "precision@5": 0.219,
+          "mrr@10": 0.7857,
+          "ndcg@10": 0.7757
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.8889,
+          "hit@6": 0.8889,
+          "recall@5": 0.7519,
+          "recall@10": 0.8,
+          "precision@5": 0.4222,
+          "mrr@10": 0.7037,
+          "ndcg@10": 0.6797
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.875,
+          "recall@10": 0.875,
+          "precision@5": 0.25,
+          "mrr@10": 0.8333,
+          "ndcg@10": 0.7714
+        }
+      }
+    },
+    "E1x": {
+      "name": "dense only + query expansion",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 14.4,
+      "latency": {
+        "mean_ms": 107.9,
+        "p50_ms": 119.1,
+        "p95_ms": 134.4
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.9136,
+          "hit@6": 0.9136,
+          "recall@5": 0.8335,
+          "recall@10": 0.8444,
+          "precision@5": 0.242,
+          "mrr@10": 0.8208,
+          "ndcg@10": 0.7819
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.8743,
+          "recall@10": 0.8686,
+          "precision@5": 0.2571,
+          "mrr@10": 0.9057,
+          "ndcg@10": 0.8369
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.8235,
+          "hit@6": 0.8235,
+          "recall@5": 0.7426,
+          "recall@10": 0.7647,
+          "precision@5": 0.2176,
+          "mrr@10": 0.723,
+          "ndcg@10": 0.6959
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9722,
+          "recall@10": 1.0,
+          "precision@5": 0.2667,
+          "mrr@10": 0.85,
+          "ndcg@10": 0.8651
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.8952,
+          "recall@10": 0.9143,
+          "precision@5": 0.3143,
+          "mrr@10": 0.9286,
+          "ndcg@10": 0.8475
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.9615,
+          "hit@6": 0.9615,
+          "recall@5": 0.8571,
+          "recall@10": 0.8647,
+          "precision@5": 0.25,
+          "mrr@10": 0.8381,
+          "ndcg@10": 0.7966
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9045,
+          "recall@10": 0.9273,
+          "precision@5": 0.2182,
+          "mrr@10": 0.947,
+          "ndcg@10": 0.895
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.9524,
+          "hit@6": 0.9524,
+          "recall@5": 0.8524,
+          "recall@10": 0.8524,
+          "precision@5": 0.2095,
+          "mrr@10": 0.7817,
+          "ndcg@10": 0.755
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.8889,
+          "hit@6": 0.8889,
+          "recall@5": 0.7519,
+          "recall@10": 0.7407,
+          "precision@5": 0.4222,
+          "mrr@10": 0.7037,
+          "ndcg@10": 0.6531
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.875,
+          "recall@10": 0.875,
+          "precision@5": 0.25,
+          "mrr@10": 0.8333,
+          "ndcg@10": 0.7714
+        }
+      }
+    },
+    "E2": {
+      "name": "BM25 only",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 0.1,
+      "latency": {
+        "mean_ms": 0.7,
+        "p50_ms": 0.6,
+        "p95_ms": 1.0
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.6914,
+          "hit@6": 0.716,
+          "recall@5": 0.6296,
+          "recall@10": 0.7677,
+          "precision@5": 0.1778,
+          "mrr@10": 0.5377,
+          "ndcg@10": 0.5726
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.8571,
+          "hit@6": 0.8571,
+          "recall@5": 0.7686,
+          "recall@10": 0.8957,
+          "precision@5": 0.2286,
+          "mrr@10": 0.6516,
+          "ndcg@10": 0.6832
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.5294,
+          "hit@6": 0.5294,
+          "recall@5": 0.4735,
+          "recall@10": 0.5882,
+          "precision@5": 0.1294,
+          "mrr@10": 0.4237,
+          "ndcg@10": 0.4497
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 0.6667,
+          "hit@6": 0.8333,
+          "recall@5": 0.6667,
+          "recall@10": 0.9028,
+          "precision@5": 0.1667,
+          "mrr@10": 0.5281,
+          "ndcg@10": 0.5986
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 0.7143,
+          "hit@6": 1.0,
+          "recall@5": 0.6857,
+          "recall@10": 0.7762,
+          "precision@5": 0.2286,
+          "mrr@10": 0.4405,
+          "ndcg@10": 0.4861
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.7885,
+          "hit@6": 0.8269,
+          "recall@5": 0.6801,
+          "recall@10": 0.7599,
+          "precision@5": 0.1962,
+          "mrr@10": 0.6678,
+          "ndcg@10": 0.6396
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.8636,
+          "hit@6": 0.9091,
+          "recall@5": 0.8159,
+          "recall@10": 0.8682,
+          "precision@5": 0.2091,
+          "mrr@10": 0.8106,
+          "ndcg@10": 0.7856
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.7143,
+          "hit@6": 0.7143,
+          "recall@5": 0.6405,
+          "recall@10": 0.6952,
+          "precision@5": 0.1714,
+          "mrr@10": 0.5228,
+          "ndcg@10": 0.5391
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.7778,
+          "hit@6": 0.8889,
+          "recall@5": 0.4407,
+          "recall@10": 0.6463,
+          "precision@5": 0.2222,
+          "mrr@10": 0.6574,
+          "ndcg@10": 0.5173
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 0.5,
+          "hit@6": 1.0,
+          "recall@5": 0.3125,
+          "recall@10": 0.9375,
+          "precision@5": 0.1,
+          "mrr@10": 0.2708,
+          "ndcg@10": 0.4452
+        }
+      }
+    },
+    "E2x": {
+      "name": "BM25 + query expansion",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 0.3,
+      "latency": {
+        "mean_ms": 1.6,
+        "p50_ms": 1.6,
+        "p95_ms": 2.1
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.7654,
+          "hit@6": 0.7778,
+          "recall@5": 0.7253,
+          "recall@10": 0.7735,
+          "precision@5": 0.2148,
+          "mrr@10": 0.5648,
+          "ndcg@10": 0.6122
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.9214,
+          "recall@10": 0.9357,
+          "precision@5": 0.2857,
+          "mrr@10": 0.7129,
+          "ndcg@10": 0.7641
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.6471,
+          "hit@6": 0.6471,
+          "recall@5": 0.6029,
+          "recall@10": 0.6735,
+          "precision@5": 0.1706,
+          "mrr@10": 0.4687,
+          "ndcg@10": 0.5161
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 0.5,
+          "hit@6": 0.5833,
+          "recall@5": 0.5,
+          "recall@10": 0.5833,
+          "precision@5": 0.1333,
+          "mrr@10": 0.4056,
+          "ndcg@10": 0.4411
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 0.2857,
+          "hit@6": 0.4286,
+          "recall@5": 0.2857,
+          "recall@10": 0.4286,
+          "precision@5": 0.1714,
+          "mrr@10": 0.2381,
+          "ndcg@10": 0.2839
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.7885,
+          "hit@6": 0.8077,
+          "recall@5": 0.7022,
+          "recall@10": 0.7875,
+          "precision@5": 0.2154,
+          "mrr@10": 0.6859,
+          "ndcg@10": 0.6715
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.8636,
+          "hit@6": 0.9091,
+          "recall@5": 0.8273,
+          "recall@10": 0.8682,
+          "precision@5": 0.2182,
+          "mrr@10": 0.8182,
+          "ndcg@10": 0.8049
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.7619,
+          "hit@6": 0.7619,
+          "recall@5": 0.7,
+          "recall@10": 0.7667,
+          "precision@5": 0.1905,
+          "mrr@10": 0.5869,
+          "ndcg@10": 0.5998
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.6667,
+          "hit@6": 0.6667,
+          "recall@5": 0.4019,
+          "recall@10": 0.6389,
+          "precision@5": 0.2667,
+          "mrr@10": 0.5937,
+          "ndcg@10": 0.513
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 0.25,
+          "hit@6": 0.5,
+          "recall@5": 0.0625,
+          "recall@10": 0.4375,
+          "precision@5": 0.05,
+          "mrr@10": 0.0917,
+          "ndcg@10": 0.187
+        }
+      }
+    },
+    "E3": {
+      "name": "hybrid (dense + BM25, RRF) — current app",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 10.5,
+      "latency": {
+        "mean_ms": 78.2,
+        "p50_ms": 84.3,
+        "p95_ms": 93.3
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.8889,
+          "hit@6": 0.8889,
+          "recall@5": 0.7996,
+          "recall@10": 0.8494,
+          "precision@5": 0.2321,
+          "mrr@10": 0.7931,
+          "ndcg@10": 0.7659
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.8743,
+          "recall@10": 0.8857,
+          "precision@5": 0.2571,
+          "mrr@10": 0.8952,
+          "ndcg@10": 0.8429
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.7941,
+          "hit@6": 0.7941,
+          "recall@5": 0.7059,
+          "recall@10": 0.7735,
+          "precision@5": 0.2059,
+          "mrr@10": 0.6696,
+          "ndcg@10": 0.6558
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 0.9167,
+          "hit@6": 0.9167,
+          "recall@5": 0.8472,
+          "recall@10": 0.9583,
+          "precision@5": 0.2333,
+          "mrr@10": 0.8452,
+          "ndcg@10": 0.8536
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.8524,
+          "recall@10": 0.8714,
+          "precision@5": 0.3143,
+          "mrr@10": 0.9286,
+          "ndcg@10": 0.8544
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.9231,
+          "hit@6": 0.9423,
+          "recall@5": 0.8394,
+          "recall@10": 0.9163,
+          "precision@5": 0.2538,
+          "mrr@10": 0.8199,
+          "ndcg@10": 0.8077
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.9545,
+          "hit@6": 0.9545,
+          "recall@5": 0.8932,
+          "recall@10": 0.9159,
+          "precision@5": 0.2273,
+          "mrr@10": 0.9242,
+          "ndcg@10": 0.888
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.9048,
+          "hit@6": 0.9524,
+          "recall@5": 0.7952,
+          "recall@10": 0.9548,
+          "precision@5": 0.1905,
+          "mrr@10": 0.7405,
+          "ndcg@10": 0.7553
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.8889,
+          "hit@6": 0.8889,
+          "recall@5": 0.8111,
+          "recall@10": 0.8278,
+          "precision@5": 0.4667,
+          "mrr@10": 0.75,
+          "ndcg@10": 0.7335
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9375,
+          "recall@10": 0.9375,
+          "precision@5": 0.3,
+          "mrr@10": 0.8125,
+          "ndcg@10": 0.8089
+        }
+      }
+    },
+    "E4": {
+      "name": "hybrid + reranker",
+      "status": "NOT RUN",
+      "reason": "reranker not requested (--reranker)"
+    },
+    "E5": {
+      "name": "hybrid + query expansion",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 15.0,
+      "latency": {
+        "mean_ms": 112.3,
+        "p50_ms": 123.9,
+        "p95_ms": 139.1
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.9259,
+          "hit@6": 0.9259,
+          "recall@5": 0.8436,
+          "recall@10": 0.8802,
+          "precision@5": 0.2469,
+          "mrr@10": 0.8118,
+          "ndcg@10": 0.7983
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.9,
+          "recall@10": 0.9086,
+          "precision@5": 0.2743,
+          "mrr@10": 0.881,
+          "ndcg@10": 0.8503
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.8529,
+          "hit@6": 0.8529,
+          "recall@5": 0.7647,
+          "recall@10": 0.8088,
+          "precision@5": 0.2235,
+          "mrr@10": 0.7321,
+          "ndcg@10": 0.7205
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.9028,
+          "recall@10": 1.0,
+          "precision@5": 0.2333,
+          "mrr@10": 0.8361,
+          "ndcg@10": 0.8673
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.8333,
+          "recall@10": 0.9714,
+          "precision@5": 0.3143,
+          "mrr@10": 0.9048,
+          "ndcg@10": 0.8938
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.9423,
+          "hit@6": 0.9615,
+          "recall@5": 0.8619,
+          "recall@10": 0.9058,
+          "precision@5": 0.2577,
+          "mrr@10": 0.8494,
+          "ndcg@10": 0.8276
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.9545,
+          "hit@6": 0.9545,
+          "recall@5": 0.9159,
+          "recall@10": 0.9159,
+          "precision@5": 0.2364,
+          "mrr@10": 0.9242,
+          "ndcg@10": 0.8883
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.9524,
+          "hit@6": 1.0,
+          "recall@5": 0.8643,
+          "recall@10": 0.9405,
+          "precision@5": 0.219,
+          "mrr@10": 0.8135,
+          "ndcg@10": 0.8123
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.8889,
+          "hit@6": 0.8889,
+          "recall@5": 0.7241,
+          "recall@10": 0.8,
+          "precision@5": 0.4,
+          "mrr@10": 0.75,
+          "ndcg@10": 0.7147
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 1.0,
+          "hit@6": 1.0,
+          "recall@5": 0.875,
+          "recall@10": 0.875,
+          "precision@5": 0.25,
+          "mrr@10": 0.8125,
+          "ndcg@10": 0.7668
+        }
+      }
+    },
+    "E6": {
+      "name": "hybrid + expansion + reranker",
+      "status": "NOT RUN",
+      "reason": "reranker not requested (--reranker)"
+    },
+    "E7": {
+      "name": "fine-tuned embeddings + hybrid + reranker",
+      "status": "NOT RUN",
+      "reason": "no fine-tuned model/collection (scripts/finetune_embeddings.py, scripts/build_collection.py)"
+    }
+  },
+  "calibration": {
+    "status": "OK",
+    "fitted_on": "validation (84 questions, 76 with the answer retrieved)",
+    "pipeline": {
+      "reranker": "BAAI/bge-reranker-v2-m3",
+      "query_expansion": true,
+      "keyword_weight": 0.5,
+      "keyword_seat": false
+    },
+    "test_questions": 59,
+    "brier": 0.0184,
+    "ece": 0.0212,
+    "auroc": 0.9902,
+    "answer_at": 0.0135,
+    "abstain_at": 0.0135,
+    "at_abstain_threshold": {
+      "threshold": 0.013,
+      "coverage": 0.9492,
+      "selective_accuracy": 0.9107,
+      "wrong_answered": 5,
+      "right_refused": 0
+    },
+    "at_answer_threshold": {
+      "threshold": 0.013,
+      "coverage": 0.9492,
+      "selective_accuracy": 0.9107,
+      "wrong_answered": 5,
+      "right_refused": 0
+    },
+    "baseline_gate": {
+      "gate": 0.591,
+      "threshold": 0.5,
+      "coverage": 0.8475,
+      "selective_accuracy": 0.98,
+      "wrong_answered": 1,
+      "right_refused": 2,
+      "brier_of_0_1_rule": 0.0508
+    },
+    "baseline_cosine_auroc": 0.973,
+    "saved_to": "D:\\agri-rag-assistant\\backend\\data\\confidence_calibration.json"
+  },
+  "runtime_s": 727.8,
+  "memory_rss_mb": 987.2
+}

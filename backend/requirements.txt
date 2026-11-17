@@ -25,4 +25,8 @@ trafilatura>=2.0
 # Voice (optional: the API turns voice off when they are missing)
 faster-whisper==1.2.1
 edge-tts==7.3.1
+# Optional: LangSmith tracing (LANGSMITH_TRACING_ENABLED) and memory figures in scripts/evaluate.py
+# langsmith>=0.3
+# psutil>=5.9
+# The reranker, NLI model and fine-tuning use sentence-transformers / transformers / torch, already installed above.
 pytest==9.1.1

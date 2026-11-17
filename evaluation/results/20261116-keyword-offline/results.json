@@ -1,0 +1,312 @@
+{
+  "run": "20261116-202020-offline-keyword",
+  "date": "2026-11-16T18:20:39+00:00",
+  "dataset": {
+    "files": [
+      "data/eval_questions.json",
+      "data/eval_questions_egyptian.json"
+    ],
+    "sha256_12": "2d1ba045dd9d",
+    "questions": 143,
+    "answerable": 133,
+    "validation": 84,
+    "test": 59,
+    "seed": 13,
+    "without_matching_passage": []
+  },
+  "corpus": {
+    "source": "local export of the library's 8,872 passages (same chunker, data/clean), keyword-only run",
+    "passages": 8872,
+    "built_at": null,
+    "chunking": null
+  },
+  "models": {
+    "embedding": null,
+    "embedding_load_s": null,
+    "reranker": null,
+    "reranker_load_s": null,
+    "translation_llm": null
+  },
+  "settings": {
+    "rrf_k": 60,
+    "candidates": 30,
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "rerank_candidates": 30,
+    "expansion_weight": 0.25,
+    "dialect_rewrite": true,
+    "translation": false,
+    "depth": 10
+  },
+  "versions": {
+    "python": "3.13.18",
+    "platform": "Linux-6.18.44-fc-v470-x86_64-with-glibc2.39",
+    "sentence_transformers": "6.2.0",
+    "torch": "2.15.0+cu132",
+    "chromadb": "1.5.9",
+    "numpy": "2.5.3",
+    "transformers": "5.22.2"
+  },
+  "experiments": {
+    "E1": {
+      "name": "dense only",
+      "status": "NOT RUN",
+      "reason": "no embedding model in this run (needs the vector store and bge-m3: run on the PC)"
+    },
+    "E2": {
+      "name": "BM25 only",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 0.5,
+      "latency": {
+        "mean_ms": 0.3,
+        "p50_ms": 0.3,
+        "p95_ms": 0.4
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.7654,
+          "hit@6": 0.7654,
+          "recall@5": 0.7253,
+          "recall@10": 0.7796,
+          "precision@5": 0.2173,
+          "mrr@10": 0.5644,
+          "ndcg@10": 0.616
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.9214,
+          "recall@10": 0.9357,
+          "precision@5": 0.2857,
+          "mrr@10": 0.7129,
+          "ndcg@10": 0.7644
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.6471,
+          "hit@6": 0.6471,
+          "recall@5": 0.6029,
+          "recall@10": 0.7176,
+          "precision@5": 0.1765,
+          "mrr@10": 0.48,
+          "ndcg@10": 0.539
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 0.5,
+          "hit@6": 0.5,
+          "recall@5": 0.5,
+          "recall@10": 0.5,
+          "precision@5": 0.1333,
+          "mrr@10": 0.3708,
+          "ndcg@10": 0.4015
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 0.1429,
+          "hit@6": 0.1429,
+          "recall@5": 0.1429,
+          "recall@10": 0.1429,
+          "precision@5": 0.1429,
+          "mrr@10": 0.1429,
+          "ndcg@10": 0.1429
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.7885,
+          "hit@6": 0.7885,
+          "recall@5": 0.7061,
+          "recall@10": 0.7625,
+          "precision@5": 0.2192,
+          "mrr@10": 0.6834,
+          "ndcg@10": 0.6683
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.8636,
+          "hit@6": 0.8636,
+          "recall@5": 0.8273,
+          "recall@10": 0.8682,
+          "precision@5": 0.2182,
+          "mrr@10": 0.8232,
+          "ndcg@10": 0.8083
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.7619,
+          "hit@6": 0.7619,
+          "recall@5": 0.7,
+          "recall@10": 0.719,
+          "precision@5": 0.1905,
+          "mrr@10": 0.573,
+          "ndcg@10": 0.5919
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.6667,
+          "hit@6": 0.6667,
+          "recall@5": 0.4241,
+          "recall@10": 0.6056,
+          "precision@5": 0.2889,
+          "mrr@10": 0.5992,
+          "ndcg@10": 0.5044
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 0.25,
+          "hit@6": 0.25,
+          "recall@5": 0.0625,
+          "recall@10": 0.0625,
+          "precision@5": 0.05,
+          "mrr@10": 0.0625,
+          "ndcg@10": 0.042
+        }
+      }
+    },
+    "E2x": {
+      "name": "BM25 + query expansion",
+      "status": "OK",
+      "config": {},
+      "runtime_s": 0.3,
+      "latency": {
+        "mean_ms": 1.7,
+        "p50_ms": 1.7,
+        "p95_ms": 2.3
+      },
+      "failures": 0,
+      "metrics": {
+        "validation/all": {
+          "questions": 81,
+          "hit@5": 0.7654,
+          "hit@6": 0.7654,
+          "recall@5": 0.7191,
+          "recall@10": 0.792,
+          "precision@5": 0.2173,
+          "mrr@10": 0.5649,
+          "ndcg@10": 0.6188
+        },
+        "validation/standard Arabic": {
+          "questions": 35,
+          "hit@5": 0.9714,
+          "hit@6": 0.9714,
+          "recall@5": 0.9214,
+          "recall@10": 0.9357,
+          "precision@5": 0.2857,
+          "mrr@10": 0.7129,
+          "ndcg@10": 0.7641
+        },
+        "validation/Egyptian Arabic": {
+          "questions": 34,
+          "hit@5": 0.6765,
+          "hit@6": 0.6765,
+          "recall@5": 0.6176,
+          "recall@10": 0.7471,
+          "precision@5": 0.1824,
+          "mrr@10": 0.4851,
+          "ndcg@10": 0.5497
+        },
+        "validation/English": {
+          "questions": 12,
+          "hit@5": 0.4167,
+          "hit@6": 0.4167,
+          "recall@5": 0.4167,
+          "recall@10": 0.5,
+          "precision@5": 0.1167,
+          "mrr@10": 0.3593,
+          "ndcg@10": 0.3907
+        },
+        "validation/cross-language": {
+          "questions": 7,
+          "hit@5": 0.1429,
+          "hit@6": 0.1429,
+          "recall@5": 0.1429,
+          "recall@10": 0.1429,
+          "precision@5": 0.1429,
+          "mrr@10": 0.1429,
+          "ndcg@10": 0.1429
+        },
+        "test/all": {
+          "questions": 52,
+          "hit@5": 0.7885,
+          "hit@6": 0.7885,
+          "recall@5": 0.7022,
+          "recall@10": 0.7817,
+          "precision@5": 0.2154,
+          "mrr@10": 0.6908,
+          "ndcg@10": 0.6725
+        },
+        "test/standard Arabic": {
+          "questions": 22,
+          "hit@5": 0.8636,
+          "hit@6": 0.8636,
+          "recall@5": 0.8273,
+          "recall@10": 0.8682,
+          "precision@5": 0.2182,
+          "mrr@10": 0.8232,
+          "ndcg@10": 0.8083
+        },
+        "test/Egyptian Arabic": {
+          "questions": 21,
+          "hit@5": 0.7619,
+          "hit@6": 0.7619,
+          "recall@5": 0.7,
+          "recall@10": 0.7667,
+          "precision@5": 0.1905,
+          "mrr@10": 0.5937,
+          "ndcg@10": 0.6047
+        },
+        "test/English": {
+          "questions": 9,
+          "hit@5": 0.6667,
+          "hit@6": 0.6667,
+          "recall@5": 0.4019,
+          "recall@10": 0.6056,
+          "precision@5": 0.2667,
+          "mrr@10": 0.5937,
+          "ndcg@10": 0.4986
+        },
+        "test/cross-language": {
+          "questions": 4,
+          "hit@5": 0.25,
+          "hit@6": 0.25,
+          "recall@5": 0.0625,
+          "recall@10": 0.0625,
+          "precision@5": 0.05,
+          "mrr@10": 0.05,
+          "ndcg@10": 0.0378
+        }
+      }
+    },
+    "E3": {
+      "name": "hybrid (dense + BM25, RRF) — current app",
+      "status": "NOT RUN",
+      "reason": "no embedding model in this run (needs the vector store and bge-m3: run on the PC)"
+    },
+    "E4": {
+      "name": "hybrid + reranker",
+      "status": "NOT RUN",
+      "reason": "no embedding model in this run (needs the vector store and bge-m3: run on the PC)"
+    },
+    "E5": {
+      "name": "hybrid + query expansion",
+      "status": "NOT RUN",
+      "reason": "no embedding model in this run (needs the vector store and bge-m3: run on the PC)"
+    },
+    "E6": {
+      "name": "hybrid + expansion + reranker",
+      "status": "NOT RUN",
+      "reason": "no embedding model in this run (needs the vector store and bge-m3: run on the PC)"
+    },
+    "E7": {
+      "name": "fine-tuned embeddings + hybrid + reranker",
+      "status": "NOT RUN",
+      "reason": "no fine-tuned model/collection (scripts/finetune_embeddings.py, scripts/build_collection.py)"
+    }
+  },
+  "runtime_s": 23.5,
+  "memory_rss_mb": 1011.4
+}

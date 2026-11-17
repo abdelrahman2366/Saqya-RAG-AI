@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-16T18:25:27+00:00",
+  "split": "test",
+  "seed": 13,
+  "cases": {
+    "supported": 43,
+    "negated": 43,
+    "changed number": 29,
+    "wrong passage": 21,
+    "other document": 28
+  },
+  "results": {
+    "lexical + numbers": {
+      "status": "OK",
+      "per_case": {
+        "supported": {
+          "n": 43,
+          "correct": 1.0,
+          "verdicts": {
+            "supported": 43
+          }
+        },
+        "negated": {
+          "n": 43,
+          "correct": 0.0,
+          "verdicts": {
+            "supported": 43
+          }
+        },
+        "changed number": {
+          "n": 29,
+          "correct": 1.0,
+          "verdicts": {
+            "unsupported": 29
+          }
+        },
+        "wrong passage": {
+          "n": 21,
+          "correct": 0.905,
+          "verdicts": {
+            "partial": 19,
+            "supported": 2
+          }
+        },
+        "other document": {
+          "n": 28,
+          "correct": 0.964,
+          "verdicts": {
+            "unsupported": 27,
+            "partial": 1
+          }
+        }
+      },
+      "unsupported_detected (any non-supported verdict on a bad claim)": 0.628,
+      "false_alarm_rate (supported claim not marked supported)": 0.0
+    }
+  }
+}

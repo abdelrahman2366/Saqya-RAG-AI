@@ -36,6 +36,7 @@ from dataclasses import dataclass, field
 
 from fastapi import HTTPException, Request, status
 
+from app.core.tracing import tracer
 from app.services import crop_calendar, grounding
 from app.services.conversation import follow_up_context
 from app.services.dialect import to_msa
@@ -67,6 +68,10 @@ class RAGResult:
     note: str = ""                 # shown under the answer (general knowledge: "not from a source")
     learned: int = 0               # passages of this answer kept for later questions
     off_topic: bool = False        # refused because it isn't about farming
+    # optional layers, each None unless its flag is on (see core/config.py)
+    understanding: dict | None = None   # query_understanding.py: crop, categories, intent, conditions, missing
+    claims: dict | None = None          # claims.py: a verdict per statement of the answer
+    confidence: dict | None = None      # confidence.py: decision (answer/qualify/ask/abstain), probability, signals
 
 
 # Passages that only list a document's contents ("يتناول هذا المستند: مقدمة، ...") rarely answer anything
@@ -84,6 +89,15 @@ def focus_passages(chunks: list[RetrievedChunk], keep: int = 4, margin: float = 
     return [c for i, c in enumerate(useful) if i < keep or c.score >= best - margin]
 
 
+def _takes_weights(retriever) -> bool:
+    import inspect
+
+    try:
+        return "weights" in inspect.signature(retriever.retrieve_many).parameters
+    except (TypeError, ValueError, AttributeError):
+        return False
+
+
 class RAGService:
     origin = "library"   # where this service's answers come from (DocumentRAG: "document")
 
@@ -96,9 +110,32 @@ class RAGService:
         translate_queries: bool = True,
         self_check: bool = True,
         beyond=None,
+        *,
+        reranker=None,
+        rerank_candidates: int = 30,
+        expansion: bool = False,
+        expansion_weight: float = 0.25,
+        expansion_max_variants: int = 2,
+        expansion_max_terms: int = 4,
+        classify: bool = False,
+        verify_claims: bool = False,
+        nli=None,
+        confidence=None,
     ) -> None:
         self.retriever = retriever
         self.generator = generator
+        # Optional layers. Every one is off unless asked for, and with all of them off this class behaves exactly as
+        # it did before they existed (tests/test_pipeline.py and tests/test_ai_layers.py check that).
+        self.reranker = reranker                      # reranker.Reranker: cross-encoder over the search's candidates
+        self.rerank_candidates = max(int(rerank_candidates), top_k)
+        self.expansion = expansion                    # query_expansion.expand: extra, lower-weight search phrasings
+        self.expansion_weight = min(max(float(expansion_weight), 0.0), 0.99)   # always below the farmer's own wording
+        self.expansion_max_variants = expansion_max_variants
+        self.expansion_max_terms = expansion_max_terms
+        self.classify = classify                      # return query_understanding in the result
+        self.verify_claims = verify_claims            # claims.verify on every sourced answer
+        self.nli = nli                                # claims.NLIVerifier, optional
+        self.confidence = confidence                  # confidence.ConfidenceEstimator
         self.beyond = beyond   # beyond.Beyond: learned knowledge, the web, general knowledge (None: library only)
         self.top_k = top_k
         self.translate_queries = translate_queries
@@ -120,20 +157,136 @@ class RAGService:
         queries = [question]
         if self.translate_queries:
             target = "en" if language == "ar" else "ar"
-            translated = self.generator.translate(question, target)
+            with tracer.span("translate_query", "llm", inputs={"question": tracer.text(question), "target": target}) as span:
+                translated = self.generator.translate(question, target)
+                span.set(outputs={"translation": tracer.text(translated)})
             if translated and translated != question:
                 queries.append(translated)
         return queries
 
     def _retrieve(self, queries: list[str], **focus) -> list[RetrievedChunk]:
-        """The passages for these search queries (DocumentRAG adds each top passage's continuation)."""
-        return self.retriever.retrieve_many(queries, self.top_k, self.min_similarity, **focus)
+        """The passages for these search queries (DocumentRAG adds each top passage's continuation).
+
+        With the optional layers on: query expansions are searched as extra, lower-weight phrasings; the search
+        returns `rerank_candidates` passages and the cross-encoder keeps the best `top_k`; and a calibrated
+        confidence below its abstain threshold means "nothing found here". Each layer falls back to the plain
+        search on any failure."""
+        search, weights = list(queries), None
+        if self.expansion and queries:
+            try:
+                from app.services.query_expansion import expand
+
+                with tracer.span("query_expansion", "tool", inputs={"query": tracer.text(queries[0])}) as span:
+                    extra = expand(queries[0], max_variants=self.expansion_max_variants,
+                                   max_terms=self.expansion_max_terms, other_language=len(queries) == 1)
+                    span.set(outputs={"variants": [tracer.text(v) for v in extra.variants], "kinds": extra.kinds})
+                added = [v for v in extra.variants if v not in search]
+                if added and not _takes_weights(self.retriever):
+                    added = []   # a retriever without weighted phrasings (e.g. a test double): search as before
+                if added:
+                    search += added
+                    weights = [1.0] * len(queries) + [self.expansion_weight] * len(added)
+                    logger.info("Query expansion (%s): %s", ", ".join(extra.kinds), " | ".join(a[:80] for a in added))
+            except Exception as exc:  # noqa: BLE001 - search with the question as it is
+                logger.warning("Query expansion skipped (%s)", exc)
+                search, weights = list(queries), None
+        reranking = self.reranker is not None and not self.reranker.failed
+        wanted = self.rerank_candidates if reranking else self.top_k
+        if weights:
+            focus = {**focus, "weights": weights}
+        with tracer.span("retrieve", "retriever",
+                         inputs={"queries": [tracer.text(q) for q in search], "weights": weights, "n": wanted,
+                                 "gate": self.min_similarity, "topic": focus.get("topic")}) as span:
+            chunks = self.retriever.retrieve_many(search, wanted, self.min_similarity, **focus)
+            span.set(outputs={"passages": tracer.passages(chunks[:self.top_k]), "found": len(chunks)})
+        if reranking and len(chunks) > 1:
+            with tracer.span("rerank", "retriever", inputs={"candidates": len(chunks)},
+                             metadata={"model": self.reranker.model_name}) as span:
+                chunks = self.reranker.rerank(queries, chunks, self.top_k)
+                if self.reranker.failed:   # the model could not be loaded: the plain search, exactly as without it
+                    chunks = self.retriever.retrieve_many(search, self.top_k, self.min_similarity, **focus)
+                span.set(outputs={"passages": tracer.passages(chunks), "failed": self.reranker.failed},
+                         scoring_ms=round(self.reranker.last_ms, 1))
+        chunks = chunks[:self.top_k]
+        if chunks and self.confidence is not None:
+            from app.services.confidence import ABSTAIN, retrieval_signals
+
+            verdict = self.confidence.before_answer(retrieval_signals(queries, chunks, self.min_similarity))
+            if verdict.decision == ABSTAIN:
+                logger.info("Confidence: %s; the library's passages are not used", "; ".join(verdict.reasons))
+                return []
+        return chunks
 
     def answer(self, question: str, topic: str | None = None, history: list[str] | None = None,
                policy=None) -> RAGResult:
         """`topic`: optional crop the farmer chose to focus on (only its documents are searched).
         `history`: the farmer's previous questions in this conversation, oldest first (for follow-ups).
         `policy`: beyond.SourcePolicy — what the farmer allows when the library has no answer."""
+        with tracer.request(), tracer.span(
+                "saqya.answer", "chain",
+                inputs={"question": tracer.text(question), "topic": topic, "history_turns": len(history or [])},
+                metadata={"service": self.origin, "llm": getattr(self.generator, "model", ""),
+                          "embedding_model": getattr(self.retriever, "embedding_model", ""), "top_k": self.top_k,
+                          "reranker": getattr(self.reranker, "model_name", None), "expansion": self.expansion}) as span:
+            result = self._answer(question, topic, history, policy)
+            if self.classify or self.verify_claims or self.confidence is not None:
+                try:
+                    self._annotate(result, question, history)
+                except Exception as exc:  # noqa: BLE001 - the answer stands without its annotations
+                    logger.warning("Could not annotate the answer (%s)", exc)
+            span.set(outputs={"answer": tracer.text(result.answer), "origin": result.origin, "sources": result.sources,
+                              "language": result.language, "problem": result.problem, "retried": result.retried,
+                              "confidence": (result.confidence or {}).get("decision")})
+        return result
+
+    def _annotate(self, result: RAGResult, question: str, history: list[str] | None) -> None:
+        """Attach the optional layers' findings to a finished result, and act on the confidence decision:
+        a refusal that only lacks the crop becomes a clarifying question; a shaky answer gets a caution line."""
+        from app.services import claims as claim_checks
+        from app.services.confidence import ASK, ASK_TEXT, FOLLOW_UP, QUALIFY, QUALIFY_NOTE, retrieval_signals
+        from app.services.query_understanding import understand
+
+        understanding = understand(repair(question), history)
+        if self.classify:
+            result.understanding = understanding.to_dict()
+        sourced = bool(result.cited) and result.origin in ("library", "document", "learned", "web")
+        report = None
+        if self.verify_claims and sourced and result.chunks:
+            with tracer.span("claim_verification", "chain", inputs={"answer": tracer.text(result.answer)}) as span:
+                report = claim_checks.verify(result.answer, result.chunks, question, self.nli)
+                result.claims = report.to_dict()
+                span.set(outputs={"counts": report.counts, "supported_share": report.supported_share})
+            logger.info("Claims: %s", report.counts)
+        if self.confidence is None:
+            return
+        own = result.origin in ("library", "document")   # the calibration was fitted on the library's search
+        signals = retrieval_signals(result.queries or [question], result.chunks if own else [],
+                                    self.min_similarity, understanding.missing)
+        signals.retried = result.retried
+        if report is not None:
+            signals.supported_share, signals.worst_claim = report.supported_share, report.worst
+        answered = bool(result.cited) or result.origin == "general"
+        with tracer.span("confidence", "chain", inputs={"signals": signals.to_dict()}) as span:
+            verdict = self.confidence.after_answer(signals, answered, result.off_topic)
+            result.confidence = verdict.to_dict()
+            span.set(outputs={"decision": verdict.decision, "probability": verdict.probability,
+                              "reasons": verdict.reasons})
+        language = result.language if result.language in ("ar", "en") else "en"
+        if verdict.decision == ASK:
+            result.answer = ASK_TEXT.get(understanding.missing[0], ASK_TEXT["crop"])[language]
+        elif (answered and not result.off_topic and understanding.intent == "diagnose" and understanding.symptoms
+              and "crop" in understanding.missing and FOLLOW_UP[language] not in result.answer):
+            # a symptom described without the crop ("my plants are dying"): whatever was found can only be general, so
+            # ask for what would make it specific. A general "why" question ("why is seed treated?") has no symptom.
+            result.answer = f"{result.answer.rstrip()}\n\n{FOLLOW_UP[language]}"
+            verdict.reasons.append("no crop named: asked for crop, symptoms and irrigation")
+            result.confidence = verdict.to_dict()
+        elif verdict.decision == QUALIFY and QUALIFY_NOTE[language] not in (result.note or ""):
+            result.note = f"{result.note} {QUALIFY_NOTE[language]}".strip()
+        logger.info("Confidence: %s%s", verdict.decision, f" ({'; '.join(verdict.reasons)})" if verdict.reasons else "")
+
+    def _answer(self, question: str, topic: str | None = None, history: list[str] | None = None,
+                policy=None) -> RAGResult:
         question = repair(question)   # a mis-heard or mistyped farming word ("مع حصيل" -> "محاصيل")
         language = detect_language(question)
         if language == "ar":
@@ -219,13 +372,17 @@ class RAGService:
                 result = RAGResult(NO_CONTEXT_ANSWER[language], [], language, [], queries, topic=label, origin="none")
                 from app.services.beyond import SourcePolicy
 
-                extra = self.beyond.answer(self, question, language, queries, bool(follow), earlier, policy or SourcePolicy())
+                with tracer.span("beyond_documents", "chain", inputs={"reason": "answer beside the question"}) as span:
+                    extra = self.beyond.answer(self, question, language, queries, bool(follow), earlier, policy or SourcePolicy())
+                    span.set(outputs={"origin": getattr(extra, "origin", None)})
                 return extra if extra is not None and (extra.origin != "none" or extra.off_topic) else beside
         if result.cited or self.beyond is None or label:
             return result
         from app.services.beyond import SourcePolicy
 
-        extra = self.beyond.answer(self, question, language, queries, bool(follow), earlier, policy or SourcePolicy())
+        with tracer.span("beyond_documents", "chain", inputs={"reason": "nothing in the library"}) as span:
+            extra = self.beyond.answer(self, question, language, queries, bool(follow), earlier, policy or SourcePolicy())
+            span.set(outputs={"origin": getattr(extra, "origin", None)})
         return extra or result
 
     def respond(self, question: str, chunks: list[RetrievedChunk], language: str, queries: list[str],
@@ -238,10 +395,16 @@ class RAGService:
         # the translation line shows the LLM the same question in the other language (not for a follow-up,
         # whose search text also holds the earlier question)
         translation = queries[1] if len(queries) > 1 and not follow else None
-        first = self.generator.generate(question, chunks, language, translation=translation,
-                                        **({"earlier": earlier} if earlier else {}))
-        answer, problem, retried = self._checked(question, chunks, language, first, queries, earlier, gate)
-        answer = grounding.polish(self._in_language(answer, chunks, question, language), language)
+        with tracer.span("generate", "llm", inputs={"question": tracer.text(question), "passages": tracer.passages(chunks),
+                                                    "language": language, "earlier": tracer.text(earlier)},
+                         metadata={"model": getattr(self.generator, "model", ""), "origin": origin}) as span:
+            first = self.generator.generate(question, chunks, language, translation=translation,
+                                            **({"earlier": earlier} if earlier else {}))
+            span.set(outputs={"answer": tracer.text(first)})
+        with tracer.span("grounding_check", "chain", inputs={"answer": tracer.text(first)}) as span:
+            answer, problem, retried = self._checked(question, chunks, language, first, queries, earlier, gate)
+            answer = grounding.polish(self._in_language(answer, chunks, question, language), language)
+            span.set(outputs={"answer": tracer.text(answer), "problem": problem, "retried": retried})
 
         # the language the answer is really in (a failed translation leaves it in the passages' language): the chat
         # app sets its direction and the voice from it, and the safety line is written in it

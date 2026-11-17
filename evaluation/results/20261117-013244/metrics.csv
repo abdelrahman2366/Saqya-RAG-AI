@@ -1,0 +1,61 @@
+﻿experiment,name,split,subset,questions,hit@5,hit@6,recall@5,recall@10,precision@5,mrr@10,ndcg@10
+E1,dense only,validation,all,81,0.9259,0.9259,0.8405,0.8654,0.2444,0.8264,0.7953
+E1,dense only,validation,standard Arabic,35,0.9714,0.9714,0.8857,0.8914,0.2686,0.8914,0.8425
+E1,dense only,validation,Egyptian Arabic,34,0.8824,0.8824,0.7868,0.8206,0.2235,0.7855,0.7485
+E1,dense only,validation,English,12,0.9167,0.9167,0.8611,0.9167,0.2333,0.7528,0.7906
+E1,dense only,validation,cross-language,7,0.8571,0.8571,0.7619,0.8286,0.3143,0.7619,0.7722
+E1,dense only,test,all,52,0.9808,0.9808,0.8792,0.9019,0.2577,0.875,0.8472
+E1,dense only,test,standard Arabic,22,1.0,1.0,0.9045,0.9432,0.2182,0.9697,0.9204
+E1,dense only,test,Egyptian Arabic,21,1.0,1.0,0.9095,0.9048,0.2286,0.8413,0.8295
+E1,dense only,test,English,9,0.8889,0.8889,0.7463,0.7944,0.4222,0.7222,0.7096
+E1,dense only,test,cross-language,4,1.0,1.0,0.8125,0.8125,0.2,0.875,0.8116
+E1x,dense only + query expansion,validation,all,81,0.8765,0.8765,0.7957,0.842,0.2272,0.78,0.7576
+E1x,dense only + query expansion,validation,standard Arabic,35,0.9143,0.9143,0.8057,0.8629,0.2343,0.8386,0.7923
+E1x,dense only + query expansion,validation,Egyptian Arabic,34,0.8235,0.8235,0.7426,0.7941,0.2176,0.7488,0.7219
+E1x,dense only + query expansion,validation,English,12,0.9167,0.9167,0.9167,0.9167,0.2333,0.6972,0.7574
+E1x,dense only + query expansion,validation,cross-language,7,0.8571,0.8571,0.7429,0.7429,0.2,0.5595,0.6055
+E1x,dense only + query expansion,test,all,52,0.9231,0.9423,0.8099,0.8772,0.2346,0.8136,0.7803
+E1x,dense only + query expansion,test,standard Arabic,22,1.0,1.0,0.9045,0.9227,0.2182,0.947,0.8921
+E1x,dense only + query expansion,test,Egyptian Arabic,21,0.8571,0.9048,0.7571,0.9,0.1905,0.7606,0.7468
+E1x,dense only + query expansion,test,English,9,0.8889,0.8889,0.7019,0.713,0.3778,0.6111,0.5853
+E1x,dense only + query expansion,test,cross-language,4,1.0,1.0,0.8125,0.8125,0.2,0.625,0.627
+E2,BM25 only,validation,all,81,0.7654,0.7654,0.7253,0.7796,0.2173,0.5644,0.616
+E2,BM25 only,validation,standard Arabic,35,0.9714,0.9714,0.9214,0.9357,0.2857,0.7129,0.7644
+E2,BM25 only,validation,Egyptian Arabic,34,0.6471,0.6471,0.6029,0.7176,0.1765,0.48,0.539
+E2,BM25 only,validation,English,12,0.5,0.5,0.5,0.5,0.1333,0.3708,0.4015
+E2,BM25 only,validation,cross-language,7,0.1429,0.1429,0.1429,0.1429,0.1429,0.1429,0.1429
+E2,BM25 only,test,all,52,0.7885,0.7885,0.7061,0.7625,0.2192,0.6834,0.6683
+E2,BM25 only,test,standard Arabic,22,0.8636,0.8636,0.8273,0.8682,0.2182,0.8232,0.8083
+E2,BM25 only,test,Egyptian Arabic,21,0.7619,0.7619,0.7,0.719,0.1905,0.573,0.5919
+E2,BM25 only,test,English,9,0.6667,0.6667,0.4241,0.6056,0.2889,0.5992,0.5044
+E2,BM25 only,test,cross-language,4,0.25,0.25,0.0625,0.0625,0.05,0.0625,0.042
+E2x,BM25 + query expansion,validation,all,81,0.7654,0.7654,0.7191,0.792,0.2173,0.5649,0.6188
+E2x,BM25 + query expansion,validation,standard Arabic,35,0.9714,0.9714,0.9214,0.9357,0.2857,0.7129,0.7641
+E2x,BM25 + query expansion,validation,Egyptian Arabic,34,0.6765,0.6765,0.6176,0.7471,0.1824,0.4851,0.5497
+E2x,BM25 + query expansion,validation,English,12,0.4167,0.4167,0.4167,0.5,0.1167,0.3593,0.3907
+E2x,BM25 + query expansion,validation,cross-language,7,0.1429,0.1429,0.1429,0.1429,0.1429,0.1429,0.1429
+E2x,BM25 + query expansion,test,all,52,0.7885,0.7885,0.7022,0.7817,0.2154,0.6908,0.6725
+E2x,BM25 + query expansion,test,standard Arabic,22,0.8636,0.8636,0.8273,0.8682,0.2182,0.8232,0.8083
+E2x,BM25 + query expansion,test,Egyptian Arabic,21,0.7619,0.7619,0.7,0.7667,0.1905,0.5937,0.6047
+E2x,BM25 + query expansion,test,English,9,0.6667,0.6667,0.4019,0.6056,0.2667,0.5937,0.4986
+E2x,BM25 + query expansion,test,cross-language,4,0.25,0.25,0.0625,0.0625,0.05,0.05,0.0378
+E3,"hybrid (dense + BM25, RRF) — current app",validation,all,81,0.8889,0.8889,0.8272,0.8424,0.242,0.7438,0.7394
+E3,"hybrid (dense + BM25, RRF) — current app",validation,standard Arabic,35,0.9714,0.9714,0.9143,0.9114,0.28,0.8667,0.8393
+E3,"hybrid (dense + BM25, RRF) — current app",validation,Egyptian Arabic,34,0.8529,0.8529,0.7794,0.8088,0.2235,0.6794,0.6906
+E3,"hybrid (dense + BM25, RRF) — current app",validation,English,12,0.75,0.75,0.7083,0.7361,0.1833,0.5676,0.5862
+E3,"hybrid (dense + BM25, RRF) — current app",validation,cross-language,7,0.5714,0.5714,0.5,0.5333,0.2286,0.5159,0.4737
+E3,"hybrid (dense + BM25, RRF) — current app",test,all,52,0.9038,0.9231,0.8346,0.9183,0.2538,0.8242,0.8173
+E3,"hybrid (dense + BM25, RRF) — current app",test,standard Arabic,22,0.9545,0.9545,0.9159,0.9227,0.2364,0.8727,0.8599
+E3,"hybrid (dense + BM25, RRF) — current app",test,Egyptian Arabic,21,0.9048,0.9524,0.8405,0.9762,0.219,0.8124,0.8311
+E3,"hybrid (dense + BM25, RRF) — current app",test,English,9,0.7778,0.7778,0.6222,0.7722,0.3778,0.7333,0.6806
+E3,"hybrid (dense + BM25, RRF) — current app",test,cross-language,4,0.75,0.75,0.5625,0.5625,0.15,0.625,0.5053
+E5,hybrid + query expansion,validation,all,81,0.9136,0.9136,0.8395,0.863,0.2444,0.7608,0.7586
+E5,hybrid + query expansion,validation,standard Arabic,35,0.9714,0.9714,0.9,0.9114,0.2743,0.8524,0.8299
+E5,hybrid + query expansion,validation,Egyptian Arabic,34,0.8824,0.8824,0.7941,0.8382,0.2294,0.7233,0.7276
+E5,hybrid + query expansion,validation,English,12,0.8333,0.8333,0.7917,0.7917,0.2,0.6,0.6389
+E5,hybrid + query expansion,validation,cross-language,7,0.7143,0.7143,0.6429,0.6286,0.2571,0.5714,0.5641
+E5,hybrid + query expansion,test,all,52,0.9038,0.9231,0.8346,0.8942,0.2577,0.8013,0.792
+E5,hybrid + query expansion,test,standard Arabic,22,0.9545,0.9545,0.9273,0.9227,0.2455,0.8727,0.8568
+E5,hybrid + query expansion,test,Egyptian Arabic,21,0.9048,0.9524,0.8167,0.9524,0.2095,0.7841,0.7972
+E5,hybrid + query expansion,test,English,9,0.7778,0.7778,0.65,0.6889,0.4,0.6667,0.6215
+E5,hybrid + query expansion,test,cross-language,4,0.75,0.75,0.625,0.625,0.2,0.5,0.4746

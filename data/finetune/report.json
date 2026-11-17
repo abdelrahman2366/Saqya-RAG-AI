@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-16T18:29:00+00:00",
+  "seed": 13,
+  "train_sha256_12": "2b1d4714d076",
+  "passages": 8872,
+  "section_groups": 3252,
+  "train_rows": 8298,
+  "dev_rows": 476,
+  "dev_groups": 156,
+  "languages": {
+    "en": 983,
+    "ar": 7791
+  },
+  "kinds": {
+    "english": 919,
+    "msa": 2599,
+    "egyptian": 2940,
+    "egyptian-rewritten": 2316
+  },
+  "stats": {
+    "no usable heading": 404,
+    "rows english": 919,
+    "with hard negative": 8679,
+    "duplicate query": 3102,
+    "rows msa": 2599,
+    "rows egyptian": 2940,
+    "rows egyptian-rewritten": 2316,
+    "positive answers an evaluation question": 178,
+    "too close to an evaluation question": 33,
+    "without hard negative": 95
+  },
+  "protected_passages (answer an evaluation question)": 215,
+  "existing_pairs_audit": {
+    "file": "notebooks/results/egyptian_training_pairs.jsonl",
+    "rows": 11641,
+    "kinds": {
+      "egyptian question": 2398,
+      "keep: standard question": 637,
+      "keep: english question": 525,
+      "egyptian heading": 2714,
+      "keep: heading": 1797,
+      "egyptian crop names": 579,
+      "keep: passage": 2991
+    },
+    "identical_pairs (student == teacher)": 5952,
+    "exact_duplicate_rows": 0,
+    "evaluation_questions_copied_in": 8,
+    "has_passages": false,
+    "has_negatives": false,
+    "objective": "distillation (Egyptian text -> the base model's vector of its standard-Arabic twin)"
+  },
+  "limitations": [
+    "queries are generated from headings (weak supervision), not asked by farmers",
+    "a passage under a broad heading may not answer the generated query",
+    "hard negatives are mined with BM25 and may occasionally be relevant (false negatives)"
+  ]
+}

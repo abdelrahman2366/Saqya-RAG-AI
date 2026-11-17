@@ -322,6 +322,18 @@ def clean_translation(text: str, target: str) -> str | None:
 
 
 # ---------------------------------------------------------------- the LLM
+def _record_usage(model: str, response) -> None:
+    """Token counts and time of an Ollama reply, for the trace of the current stage (never raises)."""
+    try:
+        from app.core.tracing import tracer
+
+        duration = getattr(response, "total_duration", None)
+        tracer.usage(model, getattr(response, "prompt_eval_count", None), getattr(response, "eval_count", None),
+                     **({"duration_ms": round(duration / 1e6)} if isinstance(duration, (int, float)) else {}))
+    except Exception:  # noqa: BLE001 - tracing must never break an answer
+        pass
+
+
 class OllamaGenerator:
     def __init__(
         self,
@@ -390,6 +402,7 @@ class OllamaGenerator:
             raise LLMUnavailableError(
                 f"Cannot reach Ollama at {self.host}. Is `ollama serve` running?"
             ) from exc
+        _record_usage(self.model, response)
         return clean_llm_output(response.message.content or "")
 
     # ------------------------------------------------------------ beyond the documents
